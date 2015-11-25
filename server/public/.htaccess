@@ -13,6 +13,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
+    RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
     #Header set Access-Control-Allow-Origin "http://www.develope.com"
     #Header set Access-Control-Allow-Methods "GET,POST,PUT,DELETE,OPTIONS"
     #Header set Access-Control-Allow-Credentials "true"

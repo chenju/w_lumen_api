@@ -22,15 +22,16 @@ factory('IssuePostService', [
             issuePosts: [],
             fetchIssuePosts: function() {
                 var self = this;
-                //console.log(sessionStorage.getItem('token').token)
+                console.log(sessionStorage.getItem('token').token)
                 return $http({
                     method: 'GET',
                     url: restUrl,
                     //,credentials:true,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                        //'Authorization':'Bearer '+sessionStorage.getItem('token').token
-                        'Authorization':'Bearer '+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6XC9cL2x1bWVuLmFwcFwvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDQ4Mzg1NjIxIiwiZXhwIjoiMTQ0ODM4OTIyMSIsIm5iZiI6IjE0NDgzODU2MjEiLCJqdGkiOiI5Nzc1YmRjMmY3NDkxMWFmYTczYjA4ZTEwMTkzN2MxMyJ9.4dgTJ4gPUwM9XyT2WzPwjGsTJ_JGN-COpzO2sKPxoY0"}
+                        'Authorization':'Bearer '+sessionStorage.getItem('token')
+                    }
+                        //'Authorization':'Bearer '+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6XC9cL2x1bWVuLmFwcFwvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDQ4Mzg1NjIxIiwiZXhwIjoiMTQ0ODM4OTIyMSIsIm5iZiI6IjE0NDgzODU2MjEiLCJqdGkiOiI5Nzc1YmRjMmY3NDkxMWFmYTczYjA4ZTEwMTkzN2MxMyJ9.4dgTJ4gPUwM9XyT2WzPwjGsTJ_JGN-COpzO2sKPxoY0"}
                 }).
                 success(function(data) {
                     console.log(data)

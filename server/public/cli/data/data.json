@@ -1,0 +1,330 @@
+{
+
+    "issues":[{
+        "id":"1",
+        "title": "第一条",
+        "time":"2013",
+        "music": "music/",
+        "page": [{
+            
+            "csstext": {
+                "background-image": "url(img/bg.png)"
+            },
+            "child": [{
+                "label": "动画测试bounceIn",
+                "animat": "bounceIn",
+                "action": "turnto(0,1,1)",
+                "csstext": {
+                    "background": "red",
+                    "top": "100px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white",
+                    "border-radius": "20px"
+                }
+            }, {
+                "label": "动画测试fadeInleft",
+                "animat": "fadeInLeft",
+                "action": "",
+                "csstext": {
+                    "background": "red",
+                    "top": "200px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "动画测试flipInX",
+                "animat": "flipInX",
+                "action": "",
+                "delay": "1500",
+                "csstext": {
+                    "background": "red",
+                    "top": "300px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "1",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "动画测试rotateIn",
+                "animat": "rotateIn",
+                "action": "",
+                "delay": "2000",
+                "csstext": {
+                    "background": "red",
+                    "top": "400px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "animat": "zoomInLeft",
+                "action": "",
+                "delay": "2500",
+                "csstext": {
+                    "background-image": "url(img/mouse.png)",
+                    "top": "600px",
+                    "left": "200px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "208px",
+                    "height": "212px",
+                    "color": "white"
+                }
+            }]
+        }, {
+            "csstext": {
+                "background": "yellow"
+            },
+            "child": [{
+                "label": "页内跳转无过场",
+                "animat": "fadeIn",
+                "action": "turnto(1,0,1)",
+                "csstext": {
+                    "background": "red",
+                    "top": "100px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white",
+                    "border-radius": "20px"
+                }
+            }, {
+                "label": "页内跳转过场",
+                "animat": "fadeIn",
+                "action": "turnto(1,0)",
+                "csstext": {
+                    "background": "red",
+                    "top": "200px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "跳转外部网址",
+                "animat": "fadeIn",
+                "action": "gourl('www.163.com')",
+                "delay": "1500",
+                "csstext": {
+                    "background": "red",
+                    "top": "300px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "弹窗测试",
+                "animat": "fadeIn",
+                "action": "modal('img/mouse.png')",
+                "delay": "2000",
+                "csstext": {
+                    "background": "red",
+                    "top": "400px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "animat": "zoomInLeft",
+                "action": "",
+                "delay": "2500",
+                "csstext": {
+                    "background-image": "url(img/mouse.png)",
+                    "top": "600px",
+                    "left": "200px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "208px",
+                    "height": "212px",
+                    "color": "white"
+                }
+            }]
+        }]
+    },
+    {
+        "id":"2",
+        "title": "第二条",
+        "time":"2013",
+        "page": [{
+            "music": "music/",
+            "csstext": {
+                "background-image": "url(img/bg.png)"
+            },
+            "child": [{
+                "label": "动画测试bounceIn",
+                "animat": "bounceIn",
+                "action": "turnto(0,1,1)",
+                "csstext": {
+                    "background": "red",
+                    "top": "100px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white",
+                    "border-radius": "20px"
+                }
+            }, {
+                "label": "动画测试fadeInleft",
+                "animat": "fadeInLeft",
+                "action": "",
+                "csstext": {
+                    "background": "red",
+                    "top": "200px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "动画测试flipInX",
+                "animat": "flipInX",
+                "action": "",
+                "delay": "1500",
+                "csstext": {
+                    "background": "red",
+                    "top": "300px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "1",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "动画测试rotateIn",
+                "animat": "rotateIn",
+                "action": "",
+                "delay": "2000",
+                "csstext": {
+                    "background": "red",
+                    "top": "400px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "animat": "zoomInLeft",
+                "action": "",
+                "delay": "2500",
+                "csstext": {
+                    "background-image": "url(img/mouse.png)",
+                    "top": "600px",
+                    "left": "200px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "208px",
+                    "height": "212px",
+                    "color": "white"
+                }
+            }]
+        }, {
+            "csstext": {
+                "background-image": "url(img/bg.png)"
+            },
+            "child": [{
+                "label": "页内跳转无过场",
+                "animat": "fadeIn",
+                "action": "turnto(1,0,1)",
+                "csstext": {
+                    "background": "red",
+                    "top": "100px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white",
+                    "border-radius": "20px"
+                }
+            }, {
+                "label": "页内跳转过场",
+                "animat": "fadeIn",
+                "action": "turnto(1,0)",
+                "csstext": {
+                    "background": "red",
+                    "top": "200px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "跳转外部网址",
+                "animat": "fadeIn",
+                "action": "gourl('www.163.com')",
+                "delay": "1500",
+                "csstext": {
+                    "background": "red",
+                    "top": "300px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "label": "弹窗测试",
+                "animat": "fadeIn",
+                "action": "modal('img/mouse.png')",
+                "delay": "2000",
+                "csstext": {
+                    "background": "red",
+                    "top": "400px",
+                    "left": "100px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "300px",
+                    "height": "50px",
+                    "color": "white"
+                }
+            }, {
+                "animat": "zoomInLeft",
+                "action": "",
+                "delay": "2500",
+                "csstext": {
+                    "background-image": "url(img/mouse.png)",
+                    "top": "600px",
+                    "left": "200px",
+                    "z-index": "auto",
+                    "opacity": "0",
+                    "width": "208px",
+                    "height": "212px",
+                    "color": "white"
+                }
+            }]
+        }]
+    }]
+}

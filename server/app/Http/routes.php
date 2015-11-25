@@ -20,18 +20,21 @@ $app->get(ROUTE_BASE . '/test', function () use ($app) {
 	return $app->welcome();
 });
 
-$app->group(['prefix' => 'projects', 'middleware' => 'jwt.auth'], function ($app) {
-	$app->post('/', 'App\Http\Controllers\ProjectsController@store');
-	$app->put('/{projectId}', 'App\Http\Controllers\ProjectsController@update');
-	$app->delete('/{projectId}', 'App\Http\Controllers\ProjectsController@destroy');
+$app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) {
+	//$app->post('/', 'App\Http\Controllers\ProjectsController@store');
+	//$app->put('/{projectId}', 'App\Http\Controllers\ProjectsController@update');
+	//$app->delete('/{projectId}', 'App\Http\Controllers\ProjectsController@destroy');
+	$app->get('/', 'App\Http\Controllers\IssuesController@index');
 });
 // index, show这些则不需要
 $app->group(['prefix' => 'projects'], function ($app) {
-	$app->get('/', 'App\Http\Controllers\IssuesController@index');
-	$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
+
+	//$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
 });
-$app->get('test', 'App\Http\Controllers\IssuesController@index');
-//$app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
+//$app->get('test', 'App\Http\Controllers\IssuesController@index');
+$app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
+/*
 $app->group(['middleware' => 'cors'], function ($app) {
-	$app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
+$app->get('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
 });
+ */

@@ -14,20 +14,20 @@ class AuthController extends Controller {
 	public function postLogin(Request $request) {
 
 		/*$v = Validator::make($request, [
-		'email' => 'required|unique|max:255',
-		'password' => 'required',
-		]);
+			'email' => 'required|unique|max:255',
+			'password' => 'required',
+			]);
 
-		if ($v->fails()) {
-		return response()->json([
-		'error' => [
-		'message' => $request->all(),
-		'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
-		]],
-		IlluminateResponse::HTTP_BAD_REQUEST,
-		$headers = ['Access-Control-Allow-Origin' => 'http://www.develope.com']
-		);
-		}*/
+			if ($v->fails()) {
+			return response()->json([
+			'error' => [
+			'message' => $request->all(),
+			'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
+			]],
+			IlluminateResponse::HTTP_BAD_REQUEST,
+			$headers = ['Access-Control-Allow-Origin' => 'http://www.develope.com']
+			);
+		*/
 
 		try
 		{
