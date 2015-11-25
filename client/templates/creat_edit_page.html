@@ -1,0 +1,116 @@
+<style type="text/css">
+	.page{
+		width: 640px;
+		height: 1080px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+	}
+    .element{
+        position: absolute;
+        opacity: 1;
+    }
+    .elementbg{
+        position: absolute;
+        border-style:  dashed;
+        opacity: 1!important;
+        background: none!important;
+        border-color: yellow;
+        border-width: 1px;
+    }
+
+    .selectbg{
+        opacity: 0.1!important;
+        background: white!important;
+        position: absolute;
+    }
+
+</style>
+
+<div class="col-md-8">
+	<div class='page' ng-style="issuePostService.issuePost.page[pageid].csstext">
+         <div class='element' ng-repeat='x in issuePostService.issuePost.page[pageid].child' ng-style="x.csstext" ng-click="selected($index)">
+          <label>{{x.label}}</label>
+        </div>
+        <div ng-class="(selectItem==$index)?'elementbg':'selectbg'" ng-repeat='x in issuePostService.issuePost.page[pageid].child' ng-style="x.csstext" ng-click="selected($index)">
+        </div>
+       
+        
+
+	</div>
+</div>
+<div class="col-md-4">
+   <table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">参数</th>
+            <th class="col-md-2">值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat='(key, value) in issuePostService.issuePost.page[pageid].csstext'>
+            <td>{{key}}</td>
+            <td>
+            <input type="text" ng-model="issuePostService.issuePost.page[pageid].csstext[key]">
+            <button ng-click='upload(issuePostService.issuePost.page[pageid].csstext[key])'>...</button>
+            </td>
+            <input id='uploadinput' class="upload" type="file" nv-file-select="" uploader="uploader" />
+        </tr>
+    </tbody>
+</table>
+   <table class="table">
+    <thead>
+        <tr>
+            <th class="col-md-3">元件/moveclip</th>
+            <th class="col-md-1">
+                <button class='close' ng-click="addMC()">+</button>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat='x in issuePostService.issuePost.page[pageid].child' ng-class="(selectItem==$index)?'info':'none'" ng-click="selected($index)">
+            <td >{{$index}}</td>
+            <td>
+            <button class='close' ng-click="del($index,issuePostService.issuePost.page[pageid].child)">x</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <label>选择元件: {{selectItem}}</label>
+            <th class="col-md-2">参数</th>
+            <th class="col-md-2">值</th>
+            <button class='close' ng-click="addCss()">+</button>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>label</td>
+            <td>
+            <input type="text" ng-model="issuePostService.issuePost.page[pageid].child[selectItem].label"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>animat</td>
+            <td>
+            <input type="text" ng-model="issuePostService.issuePost.page[pageid].child[selectItem].animat"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>action</td>
+            <td>
+            <input type="text" ng-model="issuePostService.issuePost.page[pageid].child[selectItem].action"></p>
+            </td>
+        </tr>
+        <tr ng-repeat='(key,val) in issuePostService.issuePost.page[pageid].child[selectItem].csstext'>
+            <td>{{key}}</td>
+            <td>
+            <input type="text" ng-model="issuePostService.issuePost.page[pageid].child[selectItem].csstext[key]"><button class='close' ng-click="del(key,issuePostService.issuePost.page[pageid].child[selectItem].csstext)">x</button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+</div>

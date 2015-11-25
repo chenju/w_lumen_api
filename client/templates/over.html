@@ -1,0 +1,32 @@
+<div class="wrapper" ng-class="{true: 'active', false: 'inactive'}[isActive]">
+    <style>
+   
+
+    .wrapper .sec3 div:nth-child(1){
+        left: 0;
+        top: 10%;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        font-size: 100px;
+        color: white
+    }
+    
+    
+    </style>
+    <section class='sec3'>
+
+    <div init delay='100' addClass="bounceIn" class="animated">
+       没事捉什么鱼, 你闲得蛋疼啊!!
+    </div>
+    <div class="menu" ui-sref-active="active">
+        <a class="btn button button-3d button-highlight button-rounded button-giant" ui-sref="play">继续游戏</a>
+        <br>
+        <a class="btn button button-3d button-highlight button-rounded button-giant" href="/more">更多游戏</a>
+    </div>
+   
+
+
+    </section>
+  
+</div>
