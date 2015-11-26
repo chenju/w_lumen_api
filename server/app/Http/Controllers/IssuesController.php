@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use League\Fractal\Manager;
 
 class IssuesController extends ApiController {
 
@@ -21,26 +22,20 @@ class IssuesController extends ApiController {
 		}
 	}
 
-	public function index() {
+	public function getFileList(Manager $fractal) {
 
-		$data = $this->data;
-		return $data;
-
+		$collection = json_decode($this->data);
+		$data = $collection->issueList;
+		//$data = $fractal->createData($collection)->toArray();
+		return $this->respondWithCORS($data);
 	}
 
-	public function getFileList() {
+	public function viewFile($issueId) {
 
-		$files = Storage::files('/');
-		return response()->json($files);
-
-	}
-
-	public function viewFile() {
-		/*$name = 'main.json';
-	return response()->make(Storage::disk('local')->get($name), 200, [
-	'Content-Type' => Storage::disk('local')->mimeType($name),
-	'Content-Disposition' => 'inline; ' . $name,
-	]);*/
+		$url = 'data/' . $issueId . '/data.json';
+		$issue = Storage::disk('local')->get($url);
+		$data = json_decode($issue);
+		return $this->respondWithCORS($data);
 
 	}
 

@@ -24,7 +24,8 @@ $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) 
 	//$app->post('/', 'App\Http\Controllers\ProjectsController@store');
 	//$app->put('/{projectId}', 'App\Http\Controllers\ProjectsController@update');
 	//$app->delete('/{projectId}', 'App\Http\Controllers\ProjectsController@destroy');
-	$app->get('/', 'App\Http\Controllers\IssuesController@index');
+	$app->get('/', 'App\Http\Controllers\IssuesController@getFileList');
+	$app->get('/{issueId}', 'App\Http\Controllers\IssuesController@viewFile');
 });
 // index, show这些则不需要
 $app->group(['prefix' => 'projects'], function ($app) {

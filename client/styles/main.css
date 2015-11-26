@@ -1,0 +1,24 @@
+
+
+.left_bar{
+
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  transition: background-color .5s;
+    font-size: 1.4rem;
+    padding: 0 0 1.5rem;
+    height:0px;
+    padding-bottom:100%
+
+}
+
+.navbar{
+	margin: 0px;
+	border-radius: 0px
+}
+
+body{
+	background-color: #cccccc
+}

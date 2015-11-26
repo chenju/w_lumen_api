@@ -207,6 +207,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.add = function() {
                 var addPage = new issueService.page()
                 $scope.issuePostService.issuePost.page.push(addPage)
+                console.log($scope.issuePostService.issuePost.page)
             }
 
         }
@@ -238,6 +239,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             }
             $scope.addMC = function() {
                 var addPage = new issueService.mc()
+                console.log($scope.issuePostService.issuePost.page[$scope.pageid])
                 $scope.issuePostService.issuePost.page[$scope.pageid].child.push(addPage)
             }
 

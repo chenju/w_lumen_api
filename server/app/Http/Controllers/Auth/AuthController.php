@@ -13,22 +13,6 @@ class AuthController extends Controller {
 	 */
 	public function postLogin(Request $request) {
 
-		/*$v = Validator::make($request, [
-			'email' => 'required|unique|max:255',
-			'password' => 'required',
-			]);
-
-			if ($v->fails()) {
-			return response()->json([
-			'error' => [
-			'message' => $request->all(),
-			'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
-			]],
-			IlluminateResponse::HTTP_BAD_REQUEST,
-			$headers = ['Access-Control-Allow-Origin' => 'http://www.develope.com']
-			);
-		*/
-
 		try
 		{
 			$this->validate($request, [
@@ -46,8 +30,6 @@ class AuthController extends Controller {
 			);
 		}
 		$credentials = $this->getCredentials($request);
-		//$v = $request->$input;
-		//$v = json_decode($v, true);
 		try
 		{
 			// attempt to verify the credentials and create a token for the user

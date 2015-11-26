@@ -59,6 +59,11 @@
                 httpBuffer.append(rejection.config, deferred);
                 $rootScope.$broadcast('event:auth-loginRequired', rejection);
                 return deferred.promise;
+              case 401:
+                var deferred = $q.defer();
+                httpBuffer.append(rejection.config, deferred);
+                $rootScope.$broadcast('event:auth-loginRequired', rejection);
+                return deferred.promise;  
               case 403:
                 $rootScope.$broadcast('event:auth-forbidden', rejection);
                 break;
