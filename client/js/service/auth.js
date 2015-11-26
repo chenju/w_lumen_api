@@ -17,7 +17,7 @@ app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS',
             authService.login = function(credentials, success, error) {
 
                 credentials = {
-                    'email': 'darkw1ng@gmail.com',
+                    'email': 'darkwingcj@gmail.com',
                     'password': 'secret'
                 }
                 $http.post('http://lumen.app/auth/login', credentials, authService.restConfig).success(function(data) {

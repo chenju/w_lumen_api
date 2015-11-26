@@ -10,46 +10,40 @@ factory('IssuePostService', [
         var restUrl = 'http://lumen.app/issues';
         var restConfig = {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Authorization':'Bearer '+sessionStorage.getItem('token')
             }
             //,Credentials: true
         };
         
-
         return {
             issuePost: {},
             issuePosts: [],
             fetchIssuePosts: function() {
                 var self = this;
-                console.log(sessionStorage.getItem('token').token)
                 return $http({
                     method: 'GET',
                     url: restUrl,
                     //,credentials:true,
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                        'Authorization':'Bearer '+sessionStorage.getItem('token')
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        ,'Authorization':'Bearer '+sessionStorage.getItem('token')
                     }
-                        //'Authorization':'Bearer '+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6XC9cL2x1bWVuLmFwcFwvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDQ4Mzg1NjIxIiwiZXhwIjoiMTQ0ODM4OTIyMSIsIm5iZiI6IjE0NDgzODU2MjEiLCJqdGkiOiI5Nzc1YmRjMmY3NDkxMWFmYTczYjA4ZTEwMTkzN2MxMyJ9.4dgTJ4gPUwM9XyT2WzPwjGsTJ_JGN-COpzO2sKPxoY0"}
+                       
                 }).
-                success(function(data) {
-                    console.log(data)
+                success(function(data) {    
+                    console.log(data) 
                     return self.issuePosts = data;
                 }).
                 error(function(data) {
-                    console.log(data)
                     return data;
                 });
             },
             fetchIssuePost: function(issuePostId) {
                 var self = this;
-                //console.log(sessionStorage.getItem('token'))
-                //restConfig.headers['Authorization']=sessionStorage.getItem('token');
-                //restConfig.headers['Authorization'] = sessionStorage.getItem('token')
-                //restConfig.headers['Authorization']='true'
-                return $http.get(restUrl + '/' + issuePostId).
+                return $http.get(restUrl + '/' + issuePostId,restConfig).
                 success(function(data) {
+                    
                     return self.issuePost = data;
 
                 }).
@@ -266,7 +260,8 @@ factory('UserService', [
             var a = {
                 "csstext": {
                     "background-image": "url(img/bg.png)"
-                }
+                },
+                "child":[]
             };
 
             return a;

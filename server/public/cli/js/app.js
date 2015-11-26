@@ -14,7 +14,7 @@ var app = angular.module('wscene', [
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-        $urlRouterProvider.when("", "list");
+        $urlRouterProvider.when("", "/list");
 
         $stateProvider
 
