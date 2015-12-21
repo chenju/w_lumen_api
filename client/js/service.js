@@ -177,6 +177,7 @@ factory('UserService', [
             loggedIn = false;
             //$location.url('/');
             $state.go('list');
+            $rootScope.$digest()
         });
 
         return {

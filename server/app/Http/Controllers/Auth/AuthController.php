@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -41,7 +42,10 @@ class AuthController extends Controller {
 			return response()->json(['error' => 'could_not_create_token'], 500);
 		}
 		// all good so return the token
-		return response()->json(['token' => compact('token'), 'name' => 'darkwing', 'userRole' => 'admin']);
+		$user = User::where('email', $request->only('email'))->first();
+		$userrole = $user->role;
+		$username = $user->name;
+		return response()->json(['token' => $token, 'name' => $username, 'userRole' => $userrole]);
 	}
 	/**
 	 * Get the needed authorization credentials from the request.

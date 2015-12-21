@@ -21,11 +21,11 @@ function($scope, $state, $modalInstance, $window, Auth ,UserService,$rootScope) 
 	//Performs the login function, by sending a request to the server with the Auth service
 	$scope.login = function(credentials) {
 		$scope.error = false;
-		 console.log('??')
 		Auth.login(credentials, function() {
 			//success function
+			console.log("success");
 			$modalInstance.close();
-			if($rootScope.statnext) $state.go($rootScope.statnext.url.split('/')[1])
+			//if($rootScope.statnext) $state.go($rootScope.statnext.url.split('/')[1])
 			//$state.go('home');
 		}, function(err) {
 			console.log("error");

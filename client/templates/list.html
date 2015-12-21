@@ -7,11 +7,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">可视化布局</a>
+            <a class="navbar-brand" href="#">{{currentUser.name}}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" ng-click="broadcastBtnEvent('user:logout')">登出</a></li>
+                <li class="active"><a href="#" ng-click="logout()">登出</a></li>
             </ul>
         </div>
     </div>

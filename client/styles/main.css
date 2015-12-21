@@ -6,7 +6,6 @@
   margin: 0px;
   padding: 0px;
   background-color:#ccc;
-  width: 200px;
   transition: background-color .5s;
   font-size: 1.4rem;
   padding: 9px;
@@ -71,5 +70,21 @@ ul{
 .navbar{
 	border-radius: 0px;
   margin:0px;
+}
+
+.content{
+  padding: 10px;
+}
+
+.right_bar{
+  top:5px;
+  right: 5px;
+  width: 250px;
+  position: absolute;
+}
+
+input{
+  line-height: 15px;
+  width: 100px
 }
 

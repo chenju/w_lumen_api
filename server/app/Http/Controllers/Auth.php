@@ -14,20 +14,20 @@ class Auth extends Controller {
 	public function postLogin(Request $request) {
 
 		/*$v = Validator::make($request, [
-		'email' => 'required|unique|max:255',
-		'password' => 'required',
-		]);
+			'email' => 'required|unique|max:255',
+			'password' => 'required',
+			]);
 
-		if ($v->fails()) {
-		return response()->json([
-		'error' => [
-		'message' => $request->all(),
-		'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
-		]],
-		IlluminateResponse::HTTP_BAD_REQUEST,
-		$headers = ['Access-Control-Allow-Origin' => 'http://www.develope.com']
-		);
-		}*/
+			if ($v->fails()) {
+			return response()->json([
+			'error' => [
+			'message' => $request->all(),
+			'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
+			]],
+			IlluminateResponse::HTTP_BAD_REQUEST,
+			$headers = ['Access-Control-Allow-Origin' => 'http://www.develope.com']
+			);
+		*/
 
 		try
 		{
@@ -59,7 +59,7 @@ class Auth extends Controller {
 			return response()->json(['error' => 'could_not_create_token'], 500);
 		}
 		// all good so return the token
-		return response()->json(['token' => compact('token'), 'name' => 'darkwing', 'userRole' => 'admin']);
+		return response()->json(['token' => token, 'name' => 'darkwing', 'userRole' => 'admin']);
 	}
 	/**
 	 * Get the needed authorization credentials from the request.

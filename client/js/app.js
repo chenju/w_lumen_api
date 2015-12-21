@@ -11,8 +11,22 @@ var app = angular.module('wscene', [
     'http-post-urlencoded'
 ]);
 
+app.constant('USER_ROLES', {
+        all: '*',
+        admin: 'admin',
+        editor: 'editor',
+        guest: 'guest'
+    }).constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    })
 
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider','USER_ROLES', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,USER_ROLES) {
 
         $urlRouterProvider.when("", "/list");
 
@@ -67,7 +81,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                     url: "/list",
                     templateUrl: "templates/list.html",
                     controller: 'ListController',
-                    authRequired:true,
+                    data: {
+                       authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]
+                    },
                     resolve: {
                         issuePosts: ['IssuePostService', function(IssuePostService) {
                             return IssuePostService.fetchIssuePosts();
@@ -157,19 +173,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
         //$locationProvider.html5Mode(true);
 
     }])
-    .constant('USER_ROLES', {
-        all: '*',
-        admin: 'admin',
-        editor: 'editor',
-        guest: 'guest'
-    }).constant('AUTH_EVENTS', {
-        loginSuccess: 'auth-login-success',
-        loginFailed: 'auth-login-failed',
-        logoutSuccess: 'auth-logout-success',
-        sessionTimeout: 'auth-session-timeout',
-        notAuthenticated: 'auth-not-authenticated',
-        notAuthorized: 'auth-not-authorized'
-    })
+    
     /*
     .run([
         '$rootScope',
