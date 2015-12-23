@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use League\Fractal\Manager;
 
@@ -37,6 +38,32 @@ class IssuesController extends ApiController {
 		$data = json_decode($issue);
 		return $this->respondWithCORS($data);
 
+	}
+
+	public function store(Request $request) {
+		echo $request;
+	}
+
+	public function update($issueId, Request $request) {
+
+		$url = 'data/' . 3 . '/data.json';
+		$data = $request->input('title');
+		//$data = $request->method();
+		//$data = $request->all();
+		//Storage::put($url, json_decode($url));
+		//return $this->respondOk('Project was updated');
+		//var_dump($data);
+		return $data;
+		//return $request;
+
+	}
+
+	public function destroy($issueId) {
+		$url = 'data/' . $issueId . '/data.json';
+		if (Storage::exists($url)) {
+			Storage::delete($url);
+		}
+		return $this->respondOk('Project was deleted');
 	}
 
 }

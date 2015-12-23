@@ -1,7 +1,7 @@
 /*
  *
  */
- 
+
 
 angular.module('wscene.controllers', []).controller('HomeController',
 
@@ -184,7 +184,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
-            $scope.logout=Auth.logout
+            $scope.logout = Auth.logout
 
 
 
@@ -210,6 +210,11 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 var addPage = new issueService.page()
                 $scope.issuePostService.issuePost.page.push(addPage)
                 console.log($scope.issuePostService.issuePost.page)
+            }
+            $scope.save = function() {
+                console.log($scope.issuePostService.issuePost)
+                $scope.issuePostService.updateIssuePost($scope.issuePostService.issuePost)
+
             }
 
         }
@@ -273,7 +278,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 console.log(obj)
                 setTimeout(function() {
                     document.getElementById('uploadinput').click()
-                    //$scope.clicked = true;
+                        //$scope.clicked = true;
                 }, 0);
             }
 

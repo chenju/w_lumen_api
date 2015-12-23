@@ -9,6 +9,7 @@ var app = angular.module('wscene', [
     'ui.bootstrap',
     'angularFileUpload',
     'http-post-urlencoded'
+    
 ]);
 
 app.constant('USER_ROLES', {
