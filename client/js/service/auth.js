@@ -34,7 +34,7 @@ app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS',
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     authBackService.loginConfirmed('success', function(config) {
                         config.headers["Authorization"] = 'Bearer ' + data.token;
-                        config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                        //config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
                         return config
                     })
                     if (typeof(success) == "function") success(loginData)

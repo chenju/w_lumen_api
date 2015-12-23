@@ -65,8 +65,8 @@ controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_
         //$rootScope.$on(AUTH_EVENTS.notAuthorized, showNotAuthorized);
         //$rootScope.$on(AUTH_EVENTS.notAuthenticated, showLoginDialog);
         //$rootScope.$on(AUTH_EVENTS.sessionTimeout, showLoginDialog);
-        //$rootScope.$on(AUTH_EVENTS.logoutSuccess, showLoginDialog);
-        //$rootScope.$on(AUTH_EVENTS.loginSuccess, setCurrentUser);
+        $rootScope.$on(AUTH_EVENTS.logoutSuccess, showLoginDialog);
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, setCurrentUser);
 
         //listen to reponse 404, to run the login dialog
         $rootScope.$on('event:auth-loginRequired', showLoginDialog);

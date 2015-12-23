@@ -11,11 +11,11 @@ factory('IssuePostService', [
         var restConfig = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Authorization':'Bearer '+sessionStorage.getItem('token')
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             }
             //,Credentials: true
         };
-        
+
         return {
             issuePost: {},
             issuePosts: [],
@@ -26,13 +26,13 @@ factory('IssuePostService', [
                     url: restUrl,
                     //,credentials:true,
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        ,'Authorization':'Bearer '+sessionStorage.getItem('token')
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
-                       
+
                 }).
-                success(function(data) {    
-                    console.log(data) 
+                success(function(data) {
+                    console.log(data)
                     return self.issuePosts = data;
                 }).
                 error(function(data) {
@@ -41,12 +41,35 @@ factory('IssuePostService', [
             },
             fetchIssuePost: function(issuePostId) {
                 var self = this;
-                return $http.get(restUrl + '/' + issuePostId,restConfig).
+                return $http.get(restUrl + '/' + issuePostId, restConfig).
                 success(function(data) {
-                    
+
                     return self.issuePost = data;
 
                 }).
+                error(function(data) {
+                    console.log(data)
+                    return data;
+                });
+            },
+            updateIssuePost: function(issuePost) {
+                var self = this;
+                var data = {
+                    'issue': 'aaa'
+                }
+                return $http({
+                        method: 'PUT',
+                        url: restUrl + '/' + issuePost.id,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        },
+                        data:issuePost
+                    }) //put(restUrl + '/' + issuePost.id,data,restConfig)*/
+                    .success(function(data) {
+
+                        console.log(data)
+
+                    }).
                 error(function(data) {
                     console.log(data)
                     return data;
@@ -261,7 +284,7 @@ factory('UserService', [
                 "csstext": {
                     "background-image": "url(img/bg.png)"
                 },
-                "child":[]
+                "child": []
             };
 
             return a;

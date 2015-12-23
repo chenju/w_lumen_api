@@ -46,14 +46,14 @@ class IssuesController extends ApiController {
 
 	public function update($issueId, Request $request) {
 
-		$url = 'data/' . 3 . '/data.json';
-		$data = $request->input('title');
-		//$data = $request->method();
-		//$data = $request->all();
+		$url = 'data/' . $issueId . '/data.json';
+		$data = $request->all();
+		if (Storage::exists($url)) {
+			Storage::put($url, json_encode($data));
+		}
 		//Storage::put($url, json_decode($url));
-		//return $this->respondOk('Project was updated');
-		//var_dump($data);
-		return $data;
+		return $this->respondOk('Project was updated');
+		//return $data;
 		//return $request;
 
 	}

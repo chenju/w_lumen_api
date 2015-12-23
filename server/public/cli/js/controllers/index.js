@@ -1,7 +1,7 @@
 /*
  *
  */
- 
+
 
 angular.module('wscene.controllers', []).controller('HomeController',
 
@@ -177,16 +177,18 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
         }
     ).controller('ListController', ['$scope',
-        'IssuePostService', '$modal', 'UserService', '$rootScope',
+        'IssuePostService', '$modal', 'Auth', '$rootScope',
 
-        function($scope, IssuePostService, $modal, UserService, $rootScope) {
+        function($scope, IssuePostService, $modal, Auth, $rootScope) {
 
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
+            $scope.logout = Auth.logout
 
 
-            $rootScope.userService = UserService;
+
+            //$rootScope.userService = UserService;
             $scope.broadcastBtnEvent = function(event) {
                 $rootScope.$broadcast(event);
             };
@@ -206,8 +208,14 @@ angular.module('wscene.controllers', []).controller('HomeController',
             }
             $scope.add = function() {
                 var addPage = new issueService.page()
+                console.log($scope.issuePostService.issuePost)
                 $scope.issuePostService.issuePost.page.push(addPage)
                 console.log($scope.issuePostService.issuePost.page)
+            }
+            $scope.save = function() {
+                console.log($scope.issuePostService.issuePost)
+                $scope.issuePostService.updateIssuePost($scope.issuePostService.issuePost)
+
             }
 
         }
@@ -239,7 +247,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             }
             $scope.addMC = function() {
                 var addPage = new issueService.mc()
-                console.log($scope.issuePostService.issuePost.page[$scope.pageid])
+                console.log($scope.pageid)
                 $scope.issuePostService.issuePost.page[$scope.pageid].child.push(addPage)
             }
 
@@ -271,7 +279,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 console.log(obj)
                 setTimeout(function() {
                     document.getElementById('uploadinput').click()
-                    //$scope.clicked = true;
+                        //$scope.clicked = true;
                 }, 0);
             }
 
@@ -464,11 +472,11 @@ angular.module('wscene.controllers', []).controller('HomeController',
                     $timeout(function() {
 
                         if (t != n) {
-                            d[t] = '{init:false}'
-                            d[n] = '{init:true}'
+                            //d[t] = '{init:false}'
+                            //d[n] = '{init:true}'
 
-                            console.log(n + ":" + d[n])
-                            console.log(t + ":" + d[t])
+                            //console.log(n + ":" + d[n])
+                            //console.log(t + ":" + d[t])
                         }
                         e.removeClass(s)
                         $scope.pagnum = n

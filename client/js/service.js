@@ -63,10 +63,7 @@ factory('IssuePostService', [
                         headers: {
                             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                         },
-                        data: {
-                            title: 'aaa',
-                            name: 'fuck'
-                        }
+                        data:issuePost
                     }) //put(restUrl + '/' + issuePost.id,data,restConfig)*/
                     .success(function(data) {
 

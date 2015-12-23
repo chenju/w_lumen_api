@@ -1,0 +1,9 @@
+<div touch ng-touchstart="onTouchstart($event)" ng-touchmove="onTouchmove($event)" ng-touchend="onTouchend($event)" class="wrapper" ng-show='!AILoading' ng-class="{true: 'active', false: 'inactive'}[isActive]" ng-style="{height:style.mainH,'{{transform}}':style.transform}"><!--
+--><section ng-repeat="x in datas" class='sec{{$index}}' ng-style="{height:{{style.pageH}}+'px'}"><!--
+    --><div class="h_wrp" ng-style="x.csstext"><!--
+        
+            
+             --><i class='up' ng-show="!$last"></i><!--
+       </div>
+--></section><!--
+--></div><!--

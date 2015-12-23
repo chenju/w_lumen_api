@@ -208,6 +208,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             }
             $scope.add = function() {
                 var addPage = new issueService.page()
+                console.log($scope.issuePostService.issuePost)
                 $scope.issuePostService.issuePost.page.push(addPage)
                 console.log($scope.issuePostService.issuePost.page)
             }

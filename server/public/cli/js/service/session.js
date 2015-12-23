@@ -9,8 +9,8 @@
 angular.module('wscene').service('Session', function($rootScope, USER_ROLES) {
 
 	this.create = function(user) {
-		this.user = user;
-		this.userRole = user.userRole;
+		this.user = user.name;
+		this.userRole = user.usesRole; 
 	};
 	this.destroy = function() {
 		this.user = null;
