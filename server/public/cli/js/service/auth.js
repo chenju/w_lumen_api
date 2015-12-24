@@ -30,7 +30,7 @@ app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS',
                     //console.log(sessionStorage.getItem('token').token)
                     //console.log(data.token.token)
                     Session.create(loginData);
-                    $rootScope.currentUser = loginData;
+                    $rootScope.currentUser = loginData.name;
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     authBackService.loginConfirmed('success', function(config) {
                         config.headers["Authorization"] = 'Bearer ' + data.token;

@@ -21,7 +21,7 @@ $app->get(ROUTE_BASE . '/test', function () use ($app) {
 });
 
 $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) {
-	//$app->post('/', 'App\Http\Controllers\IssuesController@store');
+	$app->post('/', 'App\Http\Controllers\IssuesController@store');
 	$app->put('/{issueId}', 'App\Http\Controllers\IssuesController@update');
 	$app->delete('/{issueId}', 'App\Http\Controllers\IssuesController@destroy');
 	$app->get('/', 'App\Http\Controllers\IssuesController@getFileList');

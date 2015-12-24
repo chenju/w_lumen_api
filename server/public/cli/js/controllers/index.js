@@ -185,7 +185,10 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
             $scope.logout = Auth.logout
-
+            
+            $scope.creatNew=function(){
+                
+            }
 
 
             //$rootScope.userService = UserService;
