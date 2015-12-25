@@ -12,6 +12,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" ng-click="logout()">登出</a></li>
+                <li class="active"><a href="#" ng-click="edit({issueid:'new'})">新建</a></li>
+                <a class="btn btn-sm btn-primary"  ui-sref='edit({issueid:"new"})'>编辑</a>
             </ul>
         </div>
     </div>
@@ -31,7 +33,7 @@
             <td>{{x.issueTitle}}</td>
             <td>{{x.updaeTime}}</td>
             <td>
-            <a class="btn btn-sm btn-primary"  ui-sref='edit({issueid:{{ x.id }}})'>编辑</a>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="edit(x.id)">编缉</button>
             <button type="button" class="btn btn-sm btn-primary">删除</button>
             </td>
         </tr>

@@ -177,16 +177,18 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
         }
     ).controller('ListController', ['$scope',
-        'IssuePostService', '$modal', 'Auth', '$rootScope',
+        'IssuePostService', '$modal', 'Auth', '$rootScope','$state',
 
-        function($scope, IssuePostService, $modal, Auth, $rootScope) {
+        function($scope, IssuePostService, $modal, Auth, $rootScope,$state) {
 
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
             $scope.logout = Auth.logout
             
-            $scope.creatNew=function(){
+            $scope.edit=function(n){
+                
+                $state.go("edit",{issueid:n});
                 
             }
 
@@ -216,9 +218,16 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 console.log($scope.issuePostService.issuePost.page)
             }
             $scope.save = function() {
-                console.log($scope.issuePostService.issuePost)
-                $scope.issuePostService.updateIssuePost($scope.issuePostService.issuePost)
+                
+                if($scope.issuePostService.issuePost.id=='temp'){
+                     $scope.issuePostService.addIssuePost($scope.issuePostService.issuePost)
 
+                }
+                else{
+                    console.log($scope.issuePostService.issuePost)
+                    $scope.issuePostService.updateIssuePost($scope.issuePostService.issuePost)
+                }
+                
             }
 
         }

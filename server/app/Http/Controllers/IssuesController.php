@@ -24,7 +24,7 @@ class IssuesController extends ApiController {
 		}
 	}
 
-	function create_unique() {
+	protected function create_unique() {
 		$data = $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']
 		. time() . rand();
 		return sha1($data);
@@ -54,20 +54,26 @@ class IssuesController extends ApiController {
 		$token = JWTAuth::getToken();
 		$user = JWTAuth::toUser($token);
 		$title = $request->get('title');
-		$id = create_unique();
+		$id = $this->create_unique();
 
-		if (!$this->data == 'none') {
+		if (!($this->data == 'none')) {
 			$collection = json_decode($this->data);
 		} else {
-			$collection = array('issueList' => array());
+			//$collection = {'issueList' => array()};
+			return 'aaa';
 		}
-		$data = $collection->issueList;
+		//$data = $collection->issueList;
 		$item = array('id' => $id, 'creator' => $user->name, 'updaeTime' => date("Y/m/d h:i:s", time()), 'issueTitle' => $title);
-		array_push($data, $item);
+		$data = $collection->issueList;
+		//return $data;
+		array_push($collection->issueList, $item);
 		Storage::put('data/main.json', json_encode($collection));
+
+		Storage::makeDirectory('data/' . $id);
 
 		$url = 'data/' . $id . '/data.json';
 		$data = $request->all();
+		$data = json_decode(json_encode($data));
 		$data->id = $id;
 		if (!Storage::exists($url)) {
 			Storage::put($url, json_encode($data));
@@ -78,6 +84,7 @@ class IssuesController extends ApiController {
 
 		$url = 'data/' . $issueId . '/data.json';
 		$data = $request->all();
+
 		$title = $request->get('title');
 		$token = JWTAuth::getToken();
 		$user = JWTAuth::toUser($token);

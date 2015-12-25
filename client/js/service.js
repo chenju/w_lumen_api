@@ -41,16 +41,50 @@ factory('IssuePostService', [
             },
             fetchIssuePost: function(issuePostId) {
                 var self = this;
-                return $http.get(restUrl + '/' + issuePostId, restConfig).
-                success(function(data) {
+                console.log(issuePostId)
+                if (issuePostId == 'new') {
+                    var addIssue = {
+                        "id": 'temp',
+                        'title': 'new',
+                        'time': 'none',
+                        'music': 'false',
+                        'page': []
+                    }
+                    self.issuePost = addIssue
+                        //self.issuePost.push(addIssue)
+                    return self.issuePost
+                } else {
+                    return $http.get(restUrl + '/' + issuePostId, restConfig).
+                    success(function(data) {
 
-                    return self.issuePost = data;
+                        return self.issuePost = data;
 
-                }).
-                error(function(data) {
-                    console.log(data)
-                    return data;
-                });
+                    }).
+                    error(function(data) {
+                        console.log(data)
+                        return data;
+                    });
+                }
+            },
+            addIssuePost: function(issuePost) {
+                var self = this;
+                return $http({
+                        method: 'POST',
+                        url: restUrl,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        },
+                        data: issuePost
+                    })
+                    .success(function(data) {
+
+                        console.log(data)
+
+                    })
+                    .error(function(data) {
+                        console.log(data)
+                        return data;
+                    });
             },
             updateIssuePost: function(issuePost) {
                 var self = this;
@@ -280,11 +314,11 @@ factory('UserService', [
 
         issue: function() {
             var a = {
-                "id":'temp',
-                'title':'new',
-                'time':'none',
-                'music':'false',
-                'page':[]
+                "id": 'temp',
+                'title': 'new',
+                'time': 'none',
+                'music': 'false',
+                'page': []
             }
 
             return a;
