@@ -78,6 +78,7 @@ class IssuesController extends ApiController {
 		if (!Storage::exists($url)) {
 			Storage::put($url, json_encode($data));
 		}
+		return $id;
 	}
 
 	public function update($issueId, Request $request) {
@@ -103,27 +104,28 @@ class IssuesController extends ApiController {
 				Storage::put('data/main.json', json_encode($collection));
 				return 'updated';
 			}
-			//if (in_array("1", $val)) {
-			//return 'find';
-			//}
 		}
-		//$item = array('id' => $issueId, 'creator' => $user->name, 'updaeTime' => date("Y/m/d h:i:s", time()), 'issueTitle' => $title);
-		//array_push($data, $item);
-		//$collection->issueList = $data;
-		//Storage::put('data/main.json', json_encode($collection));
-		//Storage::put($url, json_decode($url));
-		//return $this->respondOk('Project was updated');
-		//return $data;
-		//return $request;
-
 	}
 
 	public function destroy($issueId) {
-		$url = 'data/' . $issueId . '/data.json';
+		$url = 'data/' . $issueId;
 		if (Storage::exists($url)) {
-			Storage::delete($url);
+			Storage::deleteDirectory($url);
 		}
-		return $this->respondOk('Project was deleted');
+		$collection = json_decode($this->data);
+		$data = $collection->issueList;
+
+		while (list($key, $val) = each($data)) {
+
+			if ($val->id == $issueId) {
+
+				array_splice($data, $key, 1);
+				$collection->issueList = $data;
+				Storage::put('data/main.json', json_encode($collection));
+				return $key;
+			}
+		}
+
 	}
 
 }

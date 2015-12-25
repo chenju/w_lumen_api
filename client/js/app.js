@@ -100,7 +100,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                 controller: 'EditController',
                 resolve: {
                     issuePost: ['$stateParams', 'IssuePostService', function($stateParams, IssuePostService) {
-                        console.log($stateParams.issueid)
                         return IssuePostService.fetchIssuePost($stateParams.issueid);
                     }]
                 }

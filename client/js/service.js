@@ -5,8 +5,9 @@ angular.module('Services', []).
  */
 factory('IssuePostService', [
     '$http',
+    '$state',
 
-    function($http) {
+    function($http,$state) {
         var restUrl = 'http://lumen.app/issues';
         var restConfig = {
             headers: {
@@ -32,7 +33,7 @@ factory('IssuePostService', [
 
                 }).
                 success(function(data) {
-                    console.log(data)
+                   
                     return self.issuePosts = data;
                 }).
                 error(function(data) {
@@ -41,7 +42,6 @@ factory('IssuePostService', [
             },
             fetchIssuePost: function(issuePostId) {
                 var self = this;
-                console.log(issuePostId)
                 if (issuePostId == 'new') {
                     var addIssue = {
                         "id": 'temp',
@@ -78,12 +78,13 @@ factory('IssuePostService', [
                     })
                     .success(function(data) {
 
-                        console.log(data)
+                        $state.go("edit",{issueid:data});
+                        console.log('save success')
 
                     })
                     .error(function(data) {
-                        console.log(data)
-                        return data;
+                        //console.log()
+                        //return data;
                     });
             },
             updateIssuePost: function(issuePost) {
@@ -109,16 +110,26 @@ factory('IssuePostService', [
                     return data;
                 });
             },
-            addIssuePost: function(issuePost) {
-                return $http.post(restUrl, issuePost).
-                success(function(data) {
-                    console.log(data)
-                    return data;
-                }).
-                error(function(data) {
-                    return data;
-                });
-            }
+            delIssuePost: function(issuePostId) {
+                var self = this;
+                return $http({
+                        method: 'DELETE',
+                        url: restUrl + '/' + issuePostId,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    })
+                    .success(function(data) {
+                        
+                        self.issuePosts.splice(data,1)
+                        console.log(data)
+
+                    })
+                    .error(function(data) {
+                        //console.log()
+                        //return data;
+                    });
+            },
         };
     }
 ]).

@@ -5,8 +5,9 @@ angular.module('Services', []).
  */
 factory('IssuePostService', [
     '$http',
+    '$state',
 
-    function($http) {
+    function($http,$state) {
         var restUrl = 'http://lumen.app/issues';
         var restConfig = {
             headers: {
@@ -32,7 +33,7 @@ factory('IssuePostService', [
 
                 }).
                 success(function(data) {
-                    console.log(data)
+                   
                     return self.issuePosts = data;
                 }).
                 error(function(data) {
@@ -41,16 +42,50 @@ factory('IssuePostService', [
             },
             fetchIssuePost: function(issuePostId) {
                 var self = this;
-                return $http.get(restUrl + '/' + issuePostId, restConfig).
-                success(function(data) {
+                if (issuePostId == 'new') {
+                    var addIssue = {
+                        "id": 'temp',
+                        'title': 'new',
+                        'time': 'none',
+                        'music': 'false',
+                        'page': []
+                    }
+                    self.issuePost = addIssue
+                        //self.issuePost.push(addIssue)
+                    return self.issuePost
+                } else {
+                    return $http.get(restUrl + '/' + issuePostId, restConfig).
+                    success(function(data) {
 
-                    return self.issuePost = data;
+                        return self.issuePost = data;
 
-                }).
-                error(function(data) {
-                    console.log(data)
-                    return data;
-                });
+                    }).
+                    error(function(data) {
+                        console.log(data)
+                        return data;
+                    });
+                }
+            },
+            addIssuePost: function(issuePost) {
+                var self = this;
+                return $http({
+                        method: 'POST',
+                        url: restUrl,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        },
+                        data: issuePost
+                    })
+                    .success(function(data) {
+
+                        $state.go("edit",{issueid:data});
+                        console.log('save success')
+
+                    })
+                    .error(function(data) {
+                        //console.log()
+                        //return data;
+                    });
             },
             updateIssuePost: function(issuePost) {
                 var self = this;
@@ -75,16 +110,26 @@ factory('IssuePostService', [
                     return data;
                 });
             },
-            addIssuePost: function(issuePost) {
-                return $http.post(restUrl, issuePost).
-                success(function(data) {
-                    console.log(data)
-                    return data;
-                }).
-                error(function(data) {
-                    return data;
-                });
-            }
+            delIssuePost: function(issuePostId) {
+                var self = this;
+                return $http({
+                        method: 'DELETE',
+                        url: restUrl + '/' + issuePostId,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    })
+                    .success(function(data) {
+                        
+                        self.issuePosts.splice(data,1)
+                        console.log(data)
+
+                    })
+                    .error(function(data) {
+                        //console.log()
+                        //return data;
+                    });
+            },
         };
     }
 ]).
@@ -280,11 +325,11 @@ factory('UserService', [
 
         issue: function() {
             var a = {
-                "id":'temp',
-                'title':'new',
-                'time':'none',
-                'music':'false',
-                'page':[]
+                "id": 'temp',
+                'title': 'new',
+                'time': 'none',
+                'music': 'false',
+                'page': []
             }
 
             return a;

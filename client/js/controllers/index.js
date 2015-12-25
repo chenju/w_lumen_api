@@ -192,6 +192,10 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 
             }
 
+            $scope.delete=function(n){
+                $scope.issuePostService.delIssuePost(n)
+            }
+
 
             //$rootScope.userService = UserService;
             $scope.broadcastBtnEvent = function(event) {
