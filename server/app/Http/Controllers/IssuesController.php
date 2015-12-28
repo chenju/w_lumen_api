@@ -59,13 +59,11 @@ class IssuesController extends ApiController {
 		if (!($this->data == 'none')) {
 			$collection = json_decode($this->data);
 		} else {
-			//$collection = {'issueList' => array()};
-			return 'aaa';
+			$collection = json_decode(json_encode(array('issueList' => array())));
+
 		}
-		//$data = $collection->issueList;
 		$item = array('id' => $id, 'creator' => $user->name, 'updaeTime' => date("Y/m/d h:i:s", time()), 'issueTitle' => $title);
 		$data = $collection->issueList;
-		//return $data;
 		array_push($collection->issueList, $item);
 		Storage::put('data/main.json', json_encode($collection));
 
@@ -78,7 +76,7 @@ class IssuesController extends ApiController {
 		if (!Storage::exists($url)) {
 			Storage::put($url, json_encode($data));
 		}
-		return $id;
+		return substr(trim(json_encode($id)), 1, -1);
 	}
 
 	public function update($issueId, Request $request) {

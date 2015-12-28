@@ -1,8 +1,8 @@
 'use strict';
 
 app.
-controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_EVENTS', 'USER_ROLES','$window',
-    function($scope, $rootScope, $modal, Auth, AUTH_EVENTS, USER_ROLES,$window) {
+controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_EVENTS', 'USER_ROLES','$window','$state',
+    function($scope, $rootScope, $modal, Auth, AUTH_EVENTS, USER_ROLES,$window,$state) {
         // this is the parent controller for all controllers.
         // Manages auth login functions and each controller
         // inherits from this controller	
@@ -65,7 +65,10 @@ controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_
         //$rootScope.$on(AUTH_EVENTS.notAuthorized, showNotAuthorized);
         //$rootScope.$on(AUTH_EVENTS.notAuthenticated, showLoginDialog);
         //$rootScope.$on(AUTH_EVENTS.sessionTimeout, showLoginDialog);
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, showLoginDialog);
+        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(){
+            $scope.currentUser = null;
+            $state.go('list',null,{reload:true})
+        });
         $rootScope.$on(AUTH_EVENTS.loginSuccess, setCurrentUser);
 
         //listen to reponse 404, to run the login dialog

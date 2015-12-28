@@ -169,6 +169,41 @@ angular.module('wscene.controllers', []).controller('HomeController',
         }
 
 
+    )
+    .controller('IndexController',
+
+        function($scope, $location, $timeout, $activityIndicator,$rootScope) {
+
+            'use strict';
+            $scope.isActive = true;
+            console.log($rootScope.currentUser)
+        }
+    ).controller('UserInfoController',
+
+        function($scope,UserService) {
+
+            'use strict';
+            $scope.isActive = true;
+            $scope.user =UserService.user;
+            $scope.newpassword='';
+            $scope.repeatpassword='';
+
+            $scope.save =function(){
+                if($scope.newpassword==''){
+
+                }
+                else{
+
+                    if($scope.newpassword==$scope.repeatpassword){
+                        user.newpassword=$scope.newpassword
+                    }
+                    else{
+                        alert('两次输入密码不一致')
+                    }
+                }               
+                UserService.update($scope.user)
+            }
+        }
     ).controller('OverController',
 
         function($scope, $location, $timeout, $activityIndicator) {
@@ -185,7 +220,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
             $scope.logout = Auth.logout
-            
+
             $scope.edit=function(n){
                 
                 $state.go("edit",{issueid:n});
@@ -205,13 +240,14 @@ angular.module('wscene.controllers', []).controller('HomeController',
         }
     ])
     .controller('EditController', ['$scope',
-        'IssuePostService', "issueService",
+        'IssuePostService', "issueService",'Auth',
 
-        function($scope, IssuePostService, issueService) {
+        function($scope, IssuePostService, issueService,Auth) {
 
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
+            $scope.logout = Auth.logout
             $scope.del = function(index) {
                 $scope.issuePostService.issuePost.page.splice(index, 1)
             }

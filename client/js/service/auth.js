@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS', 'authBackService',
+app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS', 'authBackService','$state',
     function($http, $rootScope, $window, Session, AUTH_EVENTS, authBackService) {
         var authService = {};
 
@@ -101,8 +101,10 @@ app.factory('Auth', ['$http', '$rootScope', '$window', 'Session', 'AUTH_EVENTS',
 
         //log out the user and broadcast the logoutSuccess event
         authService.logout = function() {
+            
+            
+            sessionStorage.clear()
             Session.destroy();
-            $window.sessionStorage.removeItem("userInfo");
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
         }
 

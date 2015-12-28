@@ -27,6 +27,11 @@ $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) 
 	$app->get('/', 'App\Http\Controllers\IssuesController@getFileList');
 	$app->get('/{issueId}', 'App\Http\Controllers\IssuesController@viewFile');
 });
+
+$app->group(['prefix' => 'user', 'middleware' => 'jwt.auth'], function ($app) {
+	$app->get('/', 'App\Http\Controllers\UsersController@getUser');
+	$app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
+});
 // index, show这些则不需要
 $app->group(['prefix' => 'issues'], function ($app) {
 
