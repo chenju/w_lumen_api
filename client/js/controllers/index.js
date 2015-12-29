@@ -180,7 +180,7 @@ angular.module('wscene.controllers', []).controller('HomeController',
         }
     ).controller('UserInfoController',
 
-        function($scope,UserService) {
+        function($scope,UserService,$state) {
 
             'use strict';
             $scope.isActive = true;
@@ -203,6 +203,10 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 }               
                 UserService.update($scope.user)
             }
+
+          $scope.quit=function() {
+              $state.go("list");
+          }  
         }
     ).controller('OverController',
 
@@ -224,6 +228,12 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.edit=function(n){
                 
                 $state.go("edit",{issueid:n});
+                
+            }
+
+            $scope.info=function(){
+                
+                $state.go("userinfo");
                 
             }
 
