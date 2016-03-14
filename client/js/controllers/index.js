@@ -178,6 +178,21 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
             console.log($rootScope.currentUser)
         }
+    )
+    .controller('userListController',
+
+        function($scope, UserService,$state) {
+
+            'use strict';
+            $scope.isActive = true;
+            $scope.userlist =UserService.userlist;
+            $scope.newpassword='***********';
+
+            $scope.sel = function(n,v){
+                $scope.userlist[n].role=v 
+            }
+
+        }
     ).controller('UserInfoController',
 
         function($scope,UserService,$state) {
@@ -187,6 +202,8 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.user =UserService.user;
             $scope.newpassword='';
             $scope.repeatpassword='';
+
+           
 
             $scope.save =function(){
                 if($scope.newpassword==''){
@@ -234,6 +251,13 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.info=function(){
                 
                 $state.go("userinfo");
+                
+            }
+
+
+            $scope.userlist=function(){
+                
+                $state.go("userlist");
                 
             }
 

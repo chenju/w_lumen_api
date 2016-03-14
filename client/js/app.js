@@ -119,6 +119,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                 }]
             }
         })
+        .state("userlist", {
+            url: "/userlist",
+            templateUrl: "templates/userlist.html",
+            controller: 'userListController',
+            resolve: {
+                userinfo: ['UserService', function(UserService) {
+                    return UserService.fetchUserList();
+                }]
+            }
+        })
 
     .state("more", {
             url: "/more",

@@ -235,7 +235,28 @@ factory('UserService', [
 
 
         return {
+            userlist:{},
             user: {},
+            fetchUserList: function() {
+                var self = this;
+                return $http({
+                    method: 'GET',
+                    url: restUrl+'/list',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).
+                success(function(data) {
+                    console.log(data)
+                    return self.userlist = data;
+
+                }).
+                error(function(data) {
+                     console.log(data)
+                    return data;
+                });
+
+            },
             fetchUser: function() {
                 var self = this;
                 return $http({

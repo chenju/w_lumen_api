@@ -21,8 +21,12 @@ class UsersController extends ApiController {
 		//return $data;
 	}
 
-	public function getFileList(Manager $fractal) {
-
+	public function getUserList(Manager $fractal) {
+		$data = User::where('email', $this->current->email)->first();
+		if ($data->role == 'admin') {
+			$users = User::all();
+			return $users;
+		}
 	}
 
 	public function getUser() {
@@ -46,6 +50,8 @@ class UsersController extends ApiController {
 
 			$user = User::find($userId);
 			$user->name = $request->name;
+			if (!$request->password == '') {$user->password = $request->password;}
+			if ($data->role == 'admin') {$user->role = $request->role;}
 			$user->save();
 			return 'update';
 		}
