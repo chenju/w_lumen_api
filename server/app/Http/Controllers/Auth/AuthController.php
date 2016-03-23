@@ -13,7 +13,7 @@ class AuthController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function postLogin(Request $request) {
-
+		header("Access-Control-Allow-Origin: *");
 		try
 		{
 			$this->validate($request, [
@@ -21,13 +21,14 @@ class AuthController extends Controller {
 			]);
 
 		} catch (HttpResponseException $e) {
+			var_dump($e);
 			return response()->json([
 				'error' => [
 					'message' => $request->all(),
 					'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
 				]],
 				IlluminateResponse::HTTP_BAD_REQUEST,
-				$headers = []
+				$headers = ["Access-Control-Allow-Origin: *"]
 			);
 		}
 		$credentials = $this->getCredentials($request);

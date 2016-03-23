@@ -8,7 +8,6 @@ angular.module('wscene.controllers', []).controller('HomeController',
         function($scope, $location, $timeout, $activityIndicator, preloader, $http, IssuePostService) {
 
             'use strict';
-
             var prefix = (function() {
                 var styles = window.getComputedStyle(document.documentElement, ''),
                     pre = (Array.prototype.slice
@@ -169,6 +168,66 @@ angular.module('wscene.controllers', []).controller('HomeController',
         }
 
 
+    )
+    .controller('IndexController',
+
+        function($scope, $location, $timeout, $activityIndicator, $rootScope) {
+
+            'use strict';
+            $scope.isActive = true;
+            console.log($rootScope.currentUser)
+        }
+    )
+    .controller('AdminCtrl', function($scope, $location, $timeout, $activityIndicator, $rootScope) {
+
+        'use strict';
+        $scope.isActive = true;
+        console.log($rootScope.currentUser)
+    })
+    .controller('userListController',
+
+        function($scope, UserService, $state) {
+
+            'use strict';
+            $scope.isActive = true;
+            $scope.userlist = UserService.userlist;
+            $scope.newpassword = '***********';
+
+            $scope.sel = function(n, v) {
+                $scope.userlist[n].role = v
+            }
+
+        }
+    ).controller('UserInfoController',
+
+        function($scope, UserService, $state) {
+
+            'use strict';
+            $scope.isActive = true;
+            $scope.user = UserService.user;
+            $scope.newpassword = '';
+            $scope.repeatpassword = '';
+
+
+
+            $scope.save = function() {
+                if ($scope.newpassword == '') {
+
+                } else {
+
+                    if ($scope.newpassword == $scope.repeatpassword) {
+                        user.newpassword = $scope.newpassword
+                    } else {
+                        alert('两次输入密码不一致')
+                    }
+                }
+                UserService.update($scope.user)
+            }
+
+            $scope.quit = function() {
+                $state.go("list");
+            }
+        }
     ).controller('OverController',
 
         function($scope, $location, $timeout, $activityIndicator) {
@@ -177,22 +236,37 @@ angular.module('wscene.controllers', []).controller('HomeController',
             $scope.isActive = true;
         }
     ).controller('ListController', ['$scope',
-        'IssuePostService', '$modal', 'Auth', '$rootScope','$state',
+        'IssuePostService', '$modal', 'Auth', '$rootScope', '$state',
 
-        function($scope, IssuePostService, $modal, Auth, $rootScope,$state) {
+        function($scope, IssuePostService, $modal, Auth, $rootScope, $state) {
 
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
             $scope.logout = Auth.logout
-            
-            $scope.edit=function(n){
-                
-                $state.go("edit",{issueid:n});
-                
+
+            $scope.edit = function(n) {
+
+                $state.go("edit", {
+                    issueid: n
+                });
+
             }
 
-            $scope.delete=function(n){
+            $scope.info = function() {
+
+                $state.go("userinfo");
+
+            }
+
+
+            $scope.userlist = function() {
+
+                $state.go("userlist");
+
+            }
+
+            $scope.delete = function(n) {
                 $scope.issuePostService.delIssuePost(n)
             }
 
@@ -205,13 +279,14 @@ angular.module('wscene.controllers', []).controller('HomeController',
         }
     ])
     .controller('EditController', ['$scope',
-        'IssuePostService', "issueService",
+        'IssuePostService', "issueService", 'Auth',
 
-        function($scope, IssuePostService, issueService) {
+        function($scope, IssuePostService, issueService, Auth) {
 
             'use strict';
             $scope.isActive = true;
             $scope.issuePostService = IssuePostService;
+            $scope.logout = Auth.logout
             $scope.del = function(index) {
                 $scope.issuePostService.issuePost.page.splice(index, 1)
             }
@@ -222,16 +297,15 @@ angular.module('wscene.controllers', []).controller('HomeController',
                 console.log($scope.issuePostService.issuePost.page)
             }
             $scope.save = function() {
-                
-                if($scope.issuePostService.issuePost.id=='temp'){
-                     $scope.issuePostService.addIssuePost($scope.issuePostService.issuePost)
 
-                }
-                else{
+                if ($scope.issuePostService.issuePost.id == 'temp') {
+                    $scope.issuePostService.addIssuePost($scope.issuePostService.issuePost)
+
+                } else {
                     console.log($scope.issuePostService.issuePost)
                     $scope.issuePostService.updateIssuePost($scope.issuePostService.issuePost)
                 }
-                
+
             }
 
         }

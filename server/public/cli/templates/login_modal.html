@@ -1,0 +1,19 @@
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">x</button>
+        <h1 class="text-center text-primary">登录</h1>
+    </div>
+    <div class="modal-body">
+        <form action="" class="form col-md-12 center-block">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="用户名" ng-model="user.email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control input-lg" placeholder="密码" ng-model="user.password">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="button" ng-click="submit(user)">OK</button>
+            </div>
+        </form>
+    </div>
+<div class="modal-footer"></div>
+

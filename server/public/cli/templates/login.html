@@ -1,19 +1,43 @@
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="cancel()">x</button>
-        <h1 class="text-center text-primary">登录</h1>
+<head>
+<title>微场景管理系统登录</title>
+        <meta charset="utf-8">
+        <link href="styles/login.css" rel='stylesheet' type='text/css' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     <div class="main">
+        <div class="login-form">
+            <h1>微场景管理系统登录</h1>
+            <div class="head">
+                <img src="images/user.png" alt=""/>
+            </div>
+            <form ng-submit="login()">
+                <input type="text" class="text" id="username" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" >
+                <input type="password" value="Password" id="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+                <div class="submit">
+                    <input type="submit" value="Log In" >
+                </div>
+                <p><a href="#">Hint: John / Password</a></p>
+            </form>
+        </div>
+         <!-- start-copyright -->
+        <div class="copy-right">
+            <p>Template by <a href="http://w3layouts.com">w3layouts</a></p>
+        </div>
+        <!-- end-copyright -->
     </div>
-    <div class="modal-body">
-        <form action="" class="form col-md-12 center-block">
-            <div class="form-group">
-                <input type="text" class="form-control input-lg" placeholder="用户名" ng-model="user.email">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control input-lg" placeholder="密码" ng-model="user.password">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="button" ng-click="submit(user)">OK</button>
-            </div>
-        </form>
-    </div>
-<div class="modal-footer"></div>
-
+    <script type="application/x-javascript">
+    window.addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){
+        window.scrollTo(0,1);
+    }
+    /*function login(e) {
+        if (e) {
+            e.prevenDefault();
+        }
+        window.localStorage.setItem('posters_galore_login', document.getElementById('username').value);
+        window.location.href = "./index.html";
+        return false;
+    }
+    </script>
+</body>

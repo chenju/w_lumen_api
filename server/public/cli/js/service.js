@@ -7,7 +7,7 @@ factory('IssuePostService', [
     '$http',
     '$state',
 
-    function($http,$state) {
+    function($http, $state) {
         var restUrl = 'http://lumen.app/issues';
         var restConfig = {
             headers: {
@@ -33,7 +33,7 @@ factory('IssuePostService', [
 
                 }).
                 success(function(data) {
-                   
+
                     return self.issuePosts = data;
                 }).
                 error(function(data) {
@@ -54,7 +54,13 @@ factory('IssuePostService', [
                         //self.issuePost.push(addIssue)
                     return self.issuePost
                 } else {
-                    return $http.get(restUrl + '/' + issuePostId, restConfig).
+                    return $http({
+                        method: 'GET',
+                        url: restUrl + '/' + issuePostId,
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    }).
                     success(function(data) {
 
                         return self.issuePost = data;
@@ -78,8 +84,10 @@ factory('IssuePostService', [
                     })
                     .success(function(data) {
 
-                        $state.go("edit",{issueid:data});
-                        console.log('save success')
+                        $state.go("edit", {
+                            issueid: data
+                        });
+                        console.log(data)
 
                     })
                     .error(function(data) {
@@ -120,8 +128,8 @@ factory('IssuePostService', [
                         }
                     })
                     .success(function(data) {
-                        
-                        self.issuePosts.splice(data,1)
+
+                        self.issuePosts.splice(data, 1)
                         console.log(data)
 
                     })
@@ -221,103 +229,78 @@ factory('CommentService', [
  */
 factory('UserService', [
     '$http',
-    '$rootScope',
-    '$location',
-    'authBackService',
-    '$modal',
-    '$state',
 
-    function($http, $rootScope, $location, authBackService, $modalInstance, $state) {
-        var restConfig, loggedIn;
+    function($http) {
+        var restUrl = 'http://lumen.app/user';
 
-        restConfig = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        };
-
-        loggedIn = (sessionStorage.getItem('token')) ? true : false;
-
-        $rootScope.$on('user:logout', function() {
-            sessionStorage.removeItem('token');
-            sessionStorage.setItem('token', 'false');
-            sessionStorage.removeItem('user');
-            loggedIn = false;
-            //$location.url('/');
-            $state.go('list');
-        });
 
         return {
-
-            /**
-             * Login
-             *
-             * @param credentials
-             * @return {*}
-             */
-            login: function(credentials, success, error) {
-
-                //authService.loginConfirmed();
-                //cb()
-                //credentials={email:'darkw1ng@gmail.com',password:'secret'} //data/api_1.php/rest/authentication
-                return $http.post('http://lumen.app/auth/login', credentials, restConfig).
+            userlist:{},
+            user: {},
+            fetchUserList: function() {
+                var self = this;
+                return $http({
+                    method: 'GET',
+                    url: restUrl+'/list',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).
                 success(function(data) {
-                    var token = data;
                     console.log(data)
+                    return self.userlist = data;
 
-
-                    sessionStorage.setItem('token', 'true');
-                    //authService.loginConfirmed();
-                    authService.loginConfirmed('success', function(config) {
-                        config.headers["Authorization"] = 'true';
-                        return config
-                    })
-                    success()
                 }).
                 error(function(data) {
-                    console.log(data)
-                    return data;
-                })
-            },
-
-
-
-            /**
-             * Register
-             *
-             * @param userData
-             * @return {*}
-             */
-            register: function(userData) {
-                return $http.post('rest/user', userData, restConfig).
-                success(function(data) {
-                    return data;
-                }).
-                error(function(data) {
+                     console.log(data)
                     return data;
                 });
+
             },
+            fetchUser: function() {
+                var self = this;
+                return $http({
+                    method: 'GET',
+                    url: restUrl,
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).
+                success(function(data) {
+                    
+                    return self.user = data;
 
+                }).
+                error(function(data) {
+                     console.log(data)
+                    return data;
+                });
 
-            /**
-             * Return logged-in status
-             *
-             * @return {Boolean}
-             */
-            isLoggedIn: function() {
-                return loggedIn;
             },
+            update: function(user) {
+                var self = this;
+                console.log('fuck')
+                return $http({
+                    method: 'PUT',
+                    url: restUrl+'/'+user.id,
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
+                    data:user
+                }).
+                success(function(data) {
+                    
+                    console.log(data)
+                    return self.user = data;
 
+                }).
+                error(function(data) {
+                     console.log(data)
+                    return data;
+                });
 
-            /**
-             * Return user
-             *
-             * @return {*}
-             */
-            getUser: function() {
-                return angular.fromJson(sessionStorage.getItem('user'));
             }
-        };
+        }
     }
 ]).factory('issueService', [function() {
 
@@ -370,69 +353,3 @@ factory('UserService', [
         }
     }
 }]);
-
-
-'use strict';
-
-/*angular.module('angular-client-side-auth')
-.factory('Auth', function($http, $cookieStore){
-
-    var accessLevels = routingConfig.accessLevels
-        , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
-
-    $cookieStore.remove('user');
-
-    function changeUser(user) {
-        angular.extend(currentUser, user);
-    }
-
-    return {
-        authorize: function(accessLevel, role) {
-            if(role === undefined) {
-                role = currentUser.role;
-            }
-
-            return accessLevel.bitMask & role.bitMask;
-        },
-        isLoggedIn: function(user) {
-            if(user === undefined) {
-                user = currentUser;
-            }
-            return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
-        },
-        register: function(user, success, error) {
-            $http.post('/register', user).success(function(res) {
-                changeUser(res);
-                success();
-            }).error(error);
-        },
-        login: function(user, success, error) {
-            $http.post('/login', user).success(function(user){
-                changeUser(user);
-                success(user);
-            }).error(error);
-        },
-        logout: function(success, error) {
-            $http.post('/logout').success(function(){
-                changeUser({
-                    username: '',
-                    role: userRoles.public
-                });
-                success();
-            }).error(error);
-        },
-        accessLevels: accessLevels,
-        userRoles: userRoles,
-        user: currentUser
-    };
-});
-
-angular.module('angular-client-side-auth')
-.factory('Users', function($http) {
-    return {
-        getAll: function(success, error) {
-            $http.get('/users').success(success).error(error);
-        }
-    };
-});*/
