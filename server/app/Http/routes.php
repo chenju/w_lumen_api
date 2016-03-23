@@ -20,9 +20,11 @@ $app->get(ROUTE_BASE . '/test', function () use ($app) {
     return $app->welcome();
 });
 
-$app->group(['prefix' => 'posts'], function ($app) {
-    $app->get('/{pageID}', 'App\Http\Controllers\IssuesController@getRss');
-});
+/*$app->group(['prefix' => 'posts'], function ($app) {
+$app->get('post/page={pageID}', 'App\Http\Controllers\IssuesController@getRss');
+});*/
+
+$app->get('/posts', 'App\Http\Controllers\IssuesController@getRss');
 
 $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) {
     $app->post('/', 'App\Http\Controllers\IssuesController@store');

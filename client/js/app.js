@@ -29,7 +29,7 @@ app.constant('USER_ROLES', {
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', 'USER_ROLES', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, USER_ROLES) {
 
-    $urlRouterProvider.when("", "/home");
+    $urlRouterProvider.when("", "/more");
 
     $stateProvider
         .state("home", {
@@ -92,7 +92,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                 }
             }
 
-
         )
         .state("edit", {
             url: "/edit/:issueid",
@@ -129,18 +128,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                 }]
             }
         })
-
-    .state("more", {
-            url: "/more",
-            templateUrl: "templates/more.html"
+        .state("admin", {
+            url: "/admin",
+            controller:'AdminCtrl'
         })
         .state('login', {
             url: '/login',
-            templateUrl: 'templates/creat_edit_issue.html',
+            templateUrl: 'templates/login.html',
             controller: 'LoginCtrl'
         })
-
-    //$urlRouterProvider.otherwise('/404');
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
     $urlRouterProvider.rule(function($injector, $location) {

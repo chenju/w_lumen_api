@@ -3,10 +3,8 @@
 app.
 controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_EVENTS', 'USER_ROLES','$window','$state',
     function($scope, $rootScope, $modal, Auth, AUTH_EVENTS, USER_ROLES,$window,$state) {
-        // this is the parent controller for all controllers.
-        // Manages auth login functions and each controller
-        // inherits from this controller	
 
+        //cssprefix
         var prefix = (function() {
             var styles = window.getComputedStyle(document.documentElement, ''),
                 pre = (Array.prototype.slice
@@ -23,11 +21,26 @@ controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_
             };
         })();
 
+
+        var username = window.sessionStorage.getItem('userInfo');
+        if (!username) {
+            //window.location.href = "./login.html";
+            $state.go('login')
+        }
+        function logout() {
+            window.sessionStorage.removeItem('userInfo');
+            //window.location.href = "./login.html";
+        }
+
+
         
-        /*if ($window.sessionStorage["userInfo"]) {
+        /*
+        if ($window.sessionStorage["userInfo"]) {
             var credentials = JSON.parse($window.sessionStorage["userInfo"]);
             Auth.login(credentials);
         }*/
+
+
 
 
 
@@ -38,7 +51,7 @@ controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_
             if (!$scope.modalShown) {
                 $scope.modalShown = true;
                 var modalInstance = $modal.open({
-                    templateUrl: 'templates/login.html',
+                    templateUrl: 'templates/login_modal.html',
                     controller: "LoginCtrl",
                     backdrop: 'static',
                 });
@@ -72,7 +85,13 @@ controller('ParentController', ['$scope', '$rootScope', '$modal', 'Auth', 'AUTH_
         $rootScope.$on(AUTH_EVENTS.loginSuccess, setCurrentUser);
 
         //listen to reponse 404, to run the login dialog
-        $rootScope.$on('event:auth-loginRequired', showLoginDialog);
+        //$rootScope.$on('event:auth-loginRequired', showLoginDialog);
+
+
+        //listen to reponse 404, to goto the login html
+        $rootScope.$on('event:auth-loginRequired', function(){
+            $state.go('login')
+        });
 
         /*$rootScope.$on('$stateChangeStart', function(event, next, current) {
             var authRequired = next && next.authRequired;

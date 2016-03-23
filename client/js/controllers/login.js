@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('wscene')
-.controller('LoginCtrl', [ '$scope', '$state', '$modalInstance' , '$window', 'Auth','UserService', '$rootScope',
+app.controller('LoginCtrl', [ '$scope', '$state' ,'$modal', '$window', 'Auth','UserService', '$rootScope',
 function($scope, $state, $modalInstance, $window, Auth ,UserService,$rootScope) {
 	$scope.credentials = {};
 	$scope.loginForm = {};
@@ -24,9 +23,9 @@ function($scope, $state, $modalInstance, $window, Auth ,UserService,$rootScope) 
 		Auth.login(credentials, function() {
 			//success function
 			console.log("success");
-			$modalInstance.close();
+			//$modalInstance.close();
 			//if($rootScope.statnext) $state.go($rootScope.statnext.url.split('/')[1])
-			//$state.go('home');
+			$state.go('list');
 		}, function(err) {
 			console.log("error");
 			$scope.error = true;
@@ -39,9 +38,5 @@ function($scope, $state, $modalInstance, $window, Auth ,UserService,$rootScope) 
 	
 	// if a session exists for current user (page was refreshed)
 	// log him in again
-	if ($window.sessionStorage["userInfo"]) {
-		var credentials = JSON.parse($window.sessionStorage["userInfo"]);
-		$scope.login(credentials);
-	}
 
 } ]);

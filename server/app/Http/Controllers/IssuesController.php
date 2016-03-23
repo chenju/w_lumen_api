@@ -44,9 +44,9 @@ class IssuesController extends ApiController
         return $out;
     }
 
-    public function getRss($pageId)
+    public function getRss()
     {
-
+        $pageId = app('request')->input('page');
         //$array = json_decode(json_encode((array) $xml_array), true);
         //$data = json_decode(file_get_contents("rss_catch.json"))
         //$exists = Storage::disk('local')->exists('data/main.json');
@@ -61,6 +61,13 @@ class IssuesController extends ApiController
             $fp = fopen("rss_catch.json", "w");
             fwrite($fp, json_encode($res));
             $item = array_slice($res["channel"]["item"], 0, 10);
+
+        }
+        foreach ($item as $key => $value) {
+            //$value['post_id'] = $key;
+            $item[$key]['post_id'] = $key;
+            //var_dump($value['post_id']);
+
         }
 
         return json_encode($item);
