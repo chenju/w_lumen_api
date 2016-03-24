@@ -16,7 +16,7 @@ Dotenv::load(__DIR__ . '/../');
  */
 
 $app = new Laravel\Lumen\Application(
-	realpath(__DIR__ . '/../')
+    realpath(__DIR__ . '/../')
 );
 
 $app->withFacades();
@@ -42,13 +42,13 @@ $app->withEloquent();
  */
 
 $app->singleton(
-	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	App\Exceptions\Handler::class
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
-	Illuminate\Contracts\Console\Kernel::class,
-	App\Console\Kernel::class
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
 );
 
 /*
@@ -77,9 +77,9 @@ $app->register('Tymon\JWTAuth\Providers\JWTAuthServiceProvider');
 // ]);
 
 $app->routeMiddleware([
-	'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-	'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
-	'cors' => 'Vluzrmos\LumenCors\CorsMiddleware',
+    'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+    'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+    'cors' => 'palanik\lumen\Middleware\LumenCors',
 ]);
 
 /*
@@ -108,7 +108,7 @@ $app->routeMiddleware([
  */
 
 //$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-//	require __DIR__ . '/../app/Http/routes.php';
+//    require __DIR__ . '/../app/Http/routes.php';
 //});
 
 //$request = Illuminate\Http\Request::capture();

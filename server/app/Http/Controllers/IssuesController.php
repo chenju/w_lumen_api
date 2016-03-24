@@ -50,7 +50,14 @@ class IssuesController extends ApiController
         //$array = json_decode(json_encode((array) $xml_array), true);
         //$data = json_decode(file_get_contents("rss_catch.json"))
         //$exists = Storage::disk('local')->exists('data/main.json');
-        header("Access-Control-Allow-Origin: *");
+        //header("Access-Control-Allow-Origin: http://www.pagefilp.com");
+        //header("Access-Control-Allow-Methods:POST, GET, OPTIONS");
+        //header("Access-Control-Allow-Headers:Content-Type, Accept, Authorization, X-Requested-With");
+        header("Access-Control-Allow-Origin: http://www.pagefilp.com");
+        header("Access-Control-Allow-Methods:OPTIONS, TRACE, GET, HEAD, POST, PUT");
+        header("Access-Control-Allow-Credentials:true");
+        header("Access-Control-Allow-Headers:Content-Type, Accept, Authorization, X-Requested-With");
+
         if ($pageId > 1) {
             $res = json_decode(file_get_contents("rss_catch.json"), true);
 
