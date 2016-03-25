@@ -16,7 +16,7 @@ Dotenv::load(__DIR__ . '/../');
  */
 
 $app = new Laravel\Lumen\Application(
-	realpath(__DIR__ . '/../')
+    realpath(__DIR__ . '/../')
 );
 
 $app->withFacades();
@@ -42,13 +42,13 @@ $app->withEloquent();
  */
 
 $app->singleton(
-	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	App\Exceptions\Handler::class
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
-	Illuminate\Contracts\Console\Kernel::class,
-	App\Console\Kernel::class
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
 );
 
 /*
@@ -63,6 +63,7 @@ $app->singleton(
  */
 
 $app->register('Tymon\JWTAuth\Providers\JWTAuthServiceProvider');
+$app->register('Barryvdh\Cors\LumenServiceProvider');
 //$app->register('App\Providers\CatchAllOptionsRequestsProvider');
 
 // $app->middleware([
@@ -78,11 +79,12 @@ $app->register('Tymon\JWTAuth\Providers\JWTAuthServiceProvider');
 // ]);
 
 $app->routeMiddleware([
-	'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-	'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
-	'cors' => 'App\Http\Middleware\CorsMiddleware',
+    'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+    'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+    'cors' => 'Barryvdh\Cors\HandleCors',
 ]);
 
+$app->configure('config\cors');
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
