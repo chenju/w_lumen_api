@@ -13,11 +13,11 @@
 define('ROUTE_BASE', '/20150927/lumen/public');
 
 $app->get('/', function () use ($app) {
-    return $app->welcome();
+	return $app->welcome();
 });
 
 $app->get(ROUTE_BASE . '/test', function () use ($app) {
-    return $app->welcome();
+	return $app->welcome();
 });
 
 /*$app->group(['prefix' => 'posts', 'middleware' => 'jwt.auth'], function ($app) {
@@ -25,35 +25,32 @@ $app->get(ROUTE_BASE . '/test', function () use ($app) {
 $app->get('/', 'App\Http\Controllers\IssuesController@getRss');
 });*/
 
-//$app->options('/posts', 'App\Http\Controllers\IssuesController@getRss');
-
 $app->group(['prefix' => 'posts', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
-    //$app->options('/', 'App\Http\Controllers\IssuesController@getRss');
-    $app->get('/', 'App\Http\Controllers\IssuesController@getRss');
+	$app->get('/', 'App\Http\Controllers\IssuesController@getRss');
 });
 
 $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) {
-    $app->post('/', 'App\Http\Controllers\IssuesController@store');
-    $app->put('/{issueId}', 'App\Http\Controllers\IssuesController@update');
-    $app->delete('/{issueId}', 'App\Http\Controllers\IssuesController@destroy');
-    $app->get('/', 'App\Http\Controllers\IssuesController@getFileList');
-    $app->get('/{issueId}', 'App\Http\Controllers\IssuesController@viewFile');
+	$app->post('/', 'App\Http\Controllers\IssuesController@store');
+	$app->put('/{issueId}', 'App\Http\Controllers\IssuesController@update');
+	$app->delete('/{issueId}', 'App\Http\Controllers\IssuesController@destroy');
+	$app->get('/', 'App\Http\Controllers\IssuesController@getFileList');
+	$app->get('/{issueId}', 'App\Http\Controllers\IssuesController@viewFile');
 });
 
-$app->group(['prefix' => 'user', 'middleware' => 'jwt.auth'], function ($app) {
-    $app->get('/', 'App\Http\Controllers\UsersController@getUser');
-    $app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
-    $app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
+$app->group(['prefix' => 'user', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
+	$app->get('/', 'App\Http\Controllers\UsersController@getUser');
+	$app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
+	$app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
 
 });
 // index, show这些则不需要
 $app->group(['prefix' => 'user'], function ($app) {
 
-    //$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
+	//$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
 });
 //$app->get('test', 'App\Http\Controllers\IssuesController@index');
 //$app->post('auth/login', ['middleware' => 'cors'], 'App\Http\Controllers\Auth\AuthController@postLogin');
 
 $app->group(['middleware' => 'cors'], function ($app) {
-    $app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
+	$app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
 });
