@@ -50,6 +50,14 @@ class AuthController extends Controller
         $username = $user->name;
         return response()->json(['token' => $token, 'name' => $username, 'userRole' => $userrole]);
     }
+
+    public function refreshToken(Request $request)
+    {
+        $token = JWTAuth::getToken();
+        $newToken = JWTAuth::refresh($token);
+        return response()->json(['token' => $newToken]);
+    }
+
     /**
      * Get the needed authorization credentials from the request.
      *
