@@ -37,21 +37,22 @@ $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) 
     $app->get('/{issueId}', 'App\Http\Controllers\IssuesController@viewFile');
 });
 
-$app->group(['prefix' => 'user', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
-    $app->get('/', 'App\Http\Controllers\UsersController@getUser');
-    $app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
-    $app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
+$app->group(['prefix' => 'users', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
+    $app->get('/', 'App\Http\Controllers\UsersController@getUserList');
+    //$app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
+    //$app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
 
 });
 // index, show这些则不需要
-$app->group(['prefix' => 'user'], function ($app) {
-
-    //$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
-});
+//$app->group(['prefix' => 'users'], function ($app) {
+//$app->get('/', 'App\Http\Controllers\UsersController@getUserList');
+//$app->get('/{projectId}', 'App\Http\Controllers\ProjectsController@show');
+//});
 //$app->get('test', 'App\Http\Controllers\IssuesController@index');
 //$app->post('auth/login', ['middleware' => 'cors'], 'App\Http\Controllers\Auth\AuthController@postLogin');
 
 $app->group(['middleware' => 'cors'], function ($app) {
+
     $app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postLogin');
 });
 
