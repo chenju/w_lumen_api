@@ -36,14 +36,14 @@ class ProjectsController extends ApiController {
 	 */
 	public function store(Request $request) {
 		/*$this->validate($request, $this->validationRules);
-	$this->project->name = $request->get('name');
-	$this->project->description = $request->get('description');
-	$this->project->url = $request->get('url');
-	$this->project->repository = $request->get('repository');
-	$this->project->completed_at = $request->get('completed_at');
-	$this->project->status_id = $request->get('status');
-	$this->project->save();
-	return $this->respondCreated('Project was created');*/
+			$this->project->name = $request->get('name');
+			$this->project->description = $request->get('description');
+			$this->project->url = $request->get('url');
+			$this->project->repository = $request->get('repository');
+			$this->project->completed_at = $request->get('completed_at');
+			$this->project->status_id = $request->get('status');
+			$this->project->save();
+		*/
 	}
 	/**
 	 * @param $projectId
@@ -52,35 +52,35 @@ class ProjectsController extends ApiController {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	/*public function show($projectId, Manager $fractal, ProjectTransformer $projectTransformer) {
-	$project = $this->project->findOrFail($projectId);
-	$item = new Item($project, $projectTransformer);
-	$data = $fractal->createData($item)->toArray();
-	return $this->respond($data);
-	}*/
+		$project = $this->project->findOrFail($projectId);
+		$item = new Item($project, $projectTransformer);
+		$data = $fractal->createData($item)->toArray();
+		return $this->respond($data);
+	*/
 	/**
 	 * @param $projectId
 	 * @param Request $request
 	 * @return mixed
 	 */
 	/*public function update($projectId, Request $request) {
-	$project = $this->project->findOrFail($projectId);
-	$this->validate($request, $this->validationRules);
-	$project->name = $request->get('name');
-	$project->description = $request->get('description');
-	$project->url = $request->get('url');
-	$project->repository = $request->get('repository');
-	$project->completed_at = $request->get('completed_at');
-	$project->status_id = $request->get('status');
-	$project->save();
-	return $this->respondCreated('Project was updated');
-	}*/
+		$project = $this->project->findOrFail($projectId);
+		$this->validate($request, $this->validationRules);
+		$project->name = $request->get('name');
+		$project->description = $request->get('description');
+		$project->url = $request->get('url');
+		$project->repository = $request->get('repository');
+		$project->completed_at = $request->get('completed_at');
+		$project->status_id = $request->get('status');
+		$project->save();
+		return $this->respondCreated('Project was updated');
+	*/
 	/**
 	 * @param $projectId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	/*public function destroy($projectId) {
-$project = $this->project->findOrFail($projectId);
-$project->delete();
-return $this->respondOk('Project was deleted');
-}*/
+		$project = $this->project->findOrFail($projectId);
+		$project->delete();
+		return $this->respondOk('Project was deleted');
+	*/
 }
