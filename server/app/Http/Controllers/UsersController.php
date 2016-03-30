@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use App\transformers\UserTransformer;
 use App\User;
 use Illuminate\Http\Request;
@@ -15,12 +16,14 @@ class UsersController extends ApiController
     protected $current;
     protected $statusCode = IlluminateResponse::HTTP_OK;
     protected $user;
+    protected $user_gestion;
 
-    public function __construct(User $User)
+    public function __construct(User $User, UserRepository $user_gestion)
     {
         $token = JWTAuth::getToken();
         $this->current = JWTAuth::toUser($token);
         $this->user = $User;
+        $this->user_gestion = $user_gestion;
     }
 
     public function getStatusCode()
@@ -54,7 +57,9 @@ class UsersController extends ApiController
             $users = User::all();
             $collection = new Collection($users, $UserTransformer);
             $data = $fractal->createData($collection)->toArray();
-            return $this->respond($data['data']);
+            $counts = $this->user_gestion->counts();
+            return $this->respond($counts);
+            //return $this->respond($data['data']);
         } else {
             $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
             return $this->respond('pemison_dennied');
@@ -71,11 +76,11 @@ class UsersController extends ApiController
 
     public function store(Request $request)
     {
-    	  $this->user= User::Creat
-          $this->user->name =$request->get('name');
-          $this->user->name =$request->get('email');
-          $this->user->name =$request->get('password');
-          $user->save()
+
+        $this->user->name = $request->get('name');
+        $this->user->name = $request->get('email');
+        $this->user->name = $request->get('password');
+        //$user->save()
 
     }
 
