@@ -71,6 +71,11 @@ class UsersController extends ApiController
 
     public function store(Request $request)
     {
+    	  $this->user= User::Creat
+          $this->user->name =$request->get('name');
+          $this->user->name =$request->get('email');
+          $this->user->name =$request->get('password');
+          $user->save()
 
     }
 
