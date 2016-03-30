@@ -7,80 +7,92 @@ use Illuminate\Http\Response as IlluminateResponse;
 use JWTAuth;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 
-class UsersController extends ApiController {
+class UsersController extends ApiController
+{
 
-	protected $current;
-	protected $statusCode = IlluminateResponse::HTTP_OK;
-	protected $user;
+    protected $current;
+    protected $statusCode = IlluminateResponse::HTTP_OK;
+    protected $user;
 
-	public function __construct(User $User) {
-		$token = JWTAuth::getToken();
-		$this->current = JWTAuth::toUser($token);
-		$this->user = $User;
-	}
+    public function __construct(User $User)
+    {
+        $token = JWTAuth::getToken();
+        $this->current = JWTAuth::toUser($token);
+        $this->user = $User;
+    }
 
-	public function getStatusCode() {
-		return $this->statusCode;
-	}
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
 
-	public function setStatusCode($statusCode) {
-		$this->statusCode = $statusCode;
-		return $this;
-	}
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+        return $this;
+    }
 
-	public function respond($data, $headers = []) {
-		return response()->json($data, $this->getStatusCode(), $headers);
-	}
+    public function respond($data, $headers = [])
+    {
+        return response()->json($data, $this->getStatusCode(), $headers);
+    }
 
-	protected function create_unique() {
-		$data = $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']
-		. time() . rand();
-		return sha1($data);
-		//return md5(time().$data);
-		//return $data;
-	}
+    protected function create_unique()
+    {
+        $data = $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']
+        . time() . rand();
+        return sha1($data);
+        //return md5(time().$data);
+        //return $data;
+    }
 
-	public function getUserList(Manager $fractal, UserTransformer $UserTransformer) {
-		if ($this->current->role == 'admin') {
-			$users = User::all();
-			$collection = new Collection($users, $UserTransformer);
-			$data = $fractal->createData($collection)->toArray();
-			return $this->respond($data['data']);
-		} else {
-			$this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
-			return $this->respond('pemison_dennied');
-		}
-	}
+    public function getUserList(Manager $fractal, UserTransformer $UserTransformer)
+    {
+        if ($this->current->role == 'admin') {
+            $users = User::all();
+            $collection = new Collection($users, $UserTransformer);
+            $data = $fractal->createData($collection)->toArray();
+            return $this->respond($data['data']);
+        } else {
+            $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
+            return $this->respond('pemison_dennied');
+        }
+    }
 
-	public function show($userId, Manager $fractal, UserTransformer $UserTransformer) {
-		$user = $this->user->findOrFail($userId);
-		$item = new Item($user, $UserTransformer);
-		$data = $fractal->createData($item)->toArray();
-		return $this->respond($user);
-	}
+    public function show($userId, Manager $fractal, UserTransformer $UserTransformer)
+    {
+        $user = $this->user->findOrFail($userId);
+        $item = new Item($user, $UserTransformer);
+        $data = $fractal->createData($item)->toArray();
+        return $this->respond($data['data']);
+    }
 
-	public function store(Request $request) {
+    public function store(Request $request)
+    {
 
-	}
+    }
 
-	public function update($userId, Request $request) {
+    public function update($userId, Request $request)
+    {
 
-		$data = User::where('email', $this->current->email)->first();
-		if ($data->role == 'admin' or $data->id == $userId) {
+        $data = User::where('email', $this->current->email)->first();
+        if ($data->role == 'admin' or $data->id == $userId) {
 
-			$user = User::find($userId);
-			$user->name = $request->name;
-			if (!$request->password == '') {$user->password = $request->password;}
-			if ($data->role == 'admin') {$user->role = $request->role;}
-			$user->save();
-			return 'update';
-		}
+            $user = User::find($userId);
+            $user->name = $request->name;
+            if (!$request->password == '') {$user->password = $request->password;}
+            if ($data->role == 'admin') {$user->role = $request->role;}
+            $user->save();
+            return 'update';
+        }
 
-	}
+    }
 
-	public function destroy($issueId) {
+    public function destroy($issueId)
+    {
 
-	}
+    }
 
 }
