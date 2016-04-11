@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\transformers\UserTransformer;
 use App\User;
@@ -9,6 +10,7 @@ use JWTAuth;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
+use League\Fractal\Serializer\ArraySerializer;
 
 class UsersController extends ApiController
 {
@@ -17,13 +19,16 @@ class UsersController extends ApiController
     protected $statusCode = IlluminateResponse::HTTP_OK;
     protected $user;
     protected $user_gestion;
+    protected $role_gestion;
 
-    public function __construct(User $User, UserRepository $user_gestion)
+    public function __construct(UserRepository $user_gestion, RoleRepository $role_gestion)
     {
-        $token = JWTAuth::getToken();
-        $this->current = JWTAuth::toUser($token);
-        $this->user = $User;
+
+        $this->role_gestion = $role_gestion;
         $this->user_gestion = $user_gestion;
+
+        $this->middleware('admin', ['except' => ['show']]);
+
     }
 
     public function getStatusCode()
@@ -51,27 +56,57 @@ class UsersController extends ApiController
         //return $data;
     }
 
+    public function index(Manager $fractal, UserTransformer $UserTransformer)
+    {
+        return $this->indexSort('total', $fractal, $UserTransformer);
+    }
+
+    public function indexSort($role, $fractal, $UserTransformer)
+    {
+
+        //$counts = $this->user_gestion->counts();
+        $users = $this->user_gestion->index(4, $role);
+        $fractal->setSerializer(new ArraySerializer());
+        $collection = new Collection($users, $UserTransformer);
+        $data = $fractal->createData($collection)->toArray();
+        //$links = $users->render();
+        //$roles = $this->role_gestion->all();
+        return $this->respond($data['data']);
+
+    }
+
     public function getUserList(Manager $fractal, UserTransformer $UserTransformer)
     {
-        if ($this->current->role == 'admin') {
+        if ($this->current->role_id == 1) {
             $users = User::all();
             $collection = new Collection($users, $UserTransformer);
             $data = $fractal->createData($collection)->toArray();
             $counts = $this->user_gestion->counts();
-            return $this->respond($counts);
-            //return $this->respond($data['data']);
+            //return $this->respond($counts);
+            return $this->respond($data['data']);
         } else {
             $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
-            return $this->respond('pemison_dennied');
+            return $this->respond("pemission_");
         }
     }
 
-    public function show($userId, Manager $fractal, UserTransformer $UserTransformer)
+    public function show($userId, Manager $fractal, UserTransformer $UserTransformer, User $user)
     {
-        $user = $this->user->findOrFail($userId);
-        $item = new Item($user, $UserTransformer);
-        $data = $fractal->createData($item)->toArray();
-        return $this->respond($data['data']);
+        $ccuser = JWTAuth::parseToken()->toUser();
+        if ($ccuser->role->slug === "admin" || $ccuser->id === intval($userId)) {
+
+            $fractal->setSerializer(new ArraySerializer());
+            $cuser = $user->findOrFail($userId);
+            $item = new Item($cuser, $UserTransformer);
+            $data = $fractal->createData($item)->toArray();
+
+        } else {
+            $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
+            $data = 'permision_denied';
+        }
+
+        //return $this->respond($data['data']);
+        return $this->respond($data);
     }
 
     public function store(Request $request)

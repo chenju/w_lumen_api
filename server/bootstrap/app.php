@@ -82,6 +82,7 @@ $app->routeMiddleware([
     'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
     'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
     'cors' => 'Barryvdh\Cors\HandleCors',
+    'admin' => 'App\Http\Middleware\IsAdmin',
 ]);
 
 $app->configure('config\cors');

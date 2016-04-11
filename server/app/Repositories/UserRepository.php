@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-//use App\Models\Role;
+use App\Models\Role;
 use App\User;
 
 class UserRepository extends BaseRepository
@@ -20,11 +20,9 @@ class UserRepository extends BaseRepository
      * @return void
      */
     public function __construct(
-        User $user) //,
-    //Role $role) {
-    {
+        User $user, Role $role) {
         $this->model = $user;
-        //$this->role = $role;
+        $this->role = $role;
     }
     /**
      * Save the User.
@@ -58,21 +56,21 @@ class UserRepository extends BaseRepository
      */
     public function index($n, $role)
     {
-        /*if ($role != 'total') {
-    return $this->model
-    ->with('role')
-    ->whereHas('role', function ($q) use ($role) {
-    $q->whereSlug($role);
-    })
-    ->oldest('seen')
-    ->latest()
-    ->paginate($n);
-    }
-    return $this->model
-    ->with('role')
-    ->oldest('seen')
-    ->latest()
-    ->paginate($n);*/
+        if ($role != 'total') {
+            return $this->model
+                ->with('role')
+                ->whereHas('role', function ($q) use ($role) {
+                    $q->whereSlug($role);
+                })
+                ->oldest('seen')
+                ->latest()
+                ->paginate($n);
+        }
+        return $this->model
+        //->with('role')
+            ->oldest('seen')
+            ->latest()
+            ->paginate($n);
     }
     /**
      * Count the users.

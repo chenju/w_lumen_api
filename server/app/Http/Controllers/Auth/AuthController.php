@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -46,9 +47,10 @@ class AuthController extends Controller
         }
         // all good so return the token
         $user = User::where('email', $request->only('email'))->first();
-        $userrole = $user->role;
-        $username = $user->name;
-        return response()->json(['token' => $token, 'name' => $username, 'userRole' => $userrole]);
+        $userrole = $user->role->title;
+        $username = $user->username;
+        $token = JWTAuth::fromUser($user);
+        return response()->json(['token' => $token]);
     }
 
     public function refreshToken(Request $request)

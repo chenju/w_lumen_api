@@ -38,12 +38,15 @@ $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) 
 });
 
 $app->group(['prefix' => 'users', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
-    $app->get('/', 'App\Http\Controllers\UsersController@getUserList');
+    $app->get('/', 'App\Http\Controllers\UsersController@index');
     $app->get('/{userId}', 'App\Http\Controllers\UsersController@show');
     //$app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
     //$app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
 
 });
+
+//$app->get('/users', 'App\Http\Controllers\UsersController@index');
+//$app->get('/users/{userId}', 'App\Http\Controllers\UsersController@show');
 // index, show这些则不需要
 //$app->group(['prefix' => 'users'], function ($app) {
 //$app->get('/', 'App\Http\Controllers\UsersController@getUserList');
