@@ -81,6 +81,8 @@ $app->register('Barryvdh\Cors\LumenServiceProvider');
 $app->routeMiddleware([
     'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
     'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'auth.basic' => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     'cors' => 'Barryvdh\Cors\HandleCors',
     'admin' => 'App\Http\Middleware\IsAdmin',
 ]);
