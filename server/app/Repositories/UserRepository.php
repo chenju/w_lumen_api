@@ -33,18 +33,18 @@ class UserRepository extends BaseRepository
      */
     private function save($user, $inputs)
     {
-        /*if (isset($inputs['seen'])) {
-        $user->seen = $inputs['seen'] == 'true';
+        if (isset($inputs['seen'])) {
+            $user->seen = $inputs['seen'] == 'true';
         } else {
-        $user->username = $inputs['username'];
-        $user->email = $inputs['email'];
-        if (isset($inputs['role'])) {
-        $user->role_id = $inputs['role'];
-        } else {
-        $role_user = $this->role->where('slug', 'user')->first();
-        $user->role_id = $role_user->id;
+            $user->username = $inputs['username'];
+            $user->email = $inputs['email'];
+            if (isset($inputs['role'])) {
+                $user->role_id = $inputs['role'];
+            } else {
+                $role_user = $this->role->where('slug', 'user')->first();
+                $user->role_id = $role_user->id;
+            }
         }
-        }*/
         $user->save();
     }
     /**

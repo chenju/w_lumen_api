@@ -60,6 +60,18 @@ class AuthController extends Controller
         return response()->json(['token' => $newToken]);
     }
 
+    public function testlogin(Request $request)
+    {
+        $credentials = $this->getCredentials($request);
+        if (Auth::attempt($credentials)) {
+            // 认证通过...
+            //$user = Auth::user();
+            $user = $request->user();
+            return response()->json(['username' => $user->username]);
+            //return response()->json(['token' => $token]);
+        }
+    }
+
     /**
      * Get the needed authorization credentials from the request.
      *
