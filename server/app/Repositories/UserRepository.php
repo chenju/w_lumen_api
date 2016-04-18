@@ -37,7 +37,7 @@ class UserRepository extends BaseRepository
         if (isset($inputs['seen'])) {
             $user->seen = $inputs['seen'] == 'true';
         } else {
-            $user->username = $inputs['username'];
+            $user->username = $inputs['name'];
             $user->email = $inputs['email'];
             if (isset($inputs['role'])) {
                 $user->role_id = $inputs['role'];
@@ -97,14 +97,14 @@ class UserRepository extends BaseRepository
      */
     public function counts()
     {
-        /*$counts = [
-        'admin' => $this->count('admin'),
-        'redac' => $this->count('redac'),
-        'user' => $this->count('user'),
-        //];
-        //$counts['total'] = array_sum($counts);
-        //return $counts;*/
-        return $this->model->count();
+        $counts = [
+            'admin' => $this->count('admin'),
+            'redac' => $this->count('redac'),
+            'user' => $this->count('user'),
+        ];
+        $counts['total'] = array_sum($counts);
+        return $counts;
+        //return $this->model->count();
     }
     /**
      * Create a user.
@@ -125,7 +125,7 @@ class UserRepository extends BaseRepository
         }
 
         $this->save($user, $inputs);
-        //return $user;
+        return $user;
     }
     /**
      * Update a user.

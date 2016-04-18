@@ -114,10 +114,8 @@ class UsersController extends ApiController
 
     public function store(Request $request)
     {
-
-        $this->user_gestion->store($request->all());
-        return $request->all();
-        //return 'added';
+        $data = $this->user_gestion->store($request->all());
+        return $this->respond($data);
     }
 
     public function update($userId, Request $request, User $user)
@@ -126,10 +124,7 @@ class UsersController extends ApiController
             $cuser = $user->findOrFail($userId);
             $this->user_gestion->update($request->all(), $cuser);
         }
-
-        //$this->user_gestion->update($request->all(), $cuser);
         return 'updated';
-
     }
 
     public function updateSeen($userId, Request $request, User $user)
@@ -138,10 +133,7 @@ class UsersController extends ApiController
             $cuser = $user->findOrFail($userId);
             $this->user_gestion->update($request->all(), $cuser);
         }
-
-        $this->user_gestion->update($request->all(), $cuser);
         return 'updated';
-
     }
 
     public function destroy($userId, User $user)
