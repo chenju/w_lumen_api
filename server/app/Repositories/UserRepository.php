@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Models\Role;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository
 {
@@ -114,15 +115,17 @@ class UserRepository extends BaseRepository
      */
     public function store($inputs, $confirmation_code = null)
     {
+
         $user = new $this->model;
-        $user->password = bcrypt($inputs['password']);
+        $user->password = Hash::make($inputs['password']);
         if ($confirmation_code) {
             $user->confirmation_code = $confirmation_code;
         } else {
             $user->confirmed = true;
         }
+
         $this->save($user, $inputs);
-        return $user;
+        //return $user;
     }
     /**
      * Update a user.
@@ -164,10 +167,9 @@ class UserRepository extends BaseRepository
      * @param  App\Models\User $user
      * @return void
      */
-    public function destroyUser(User $user)
+    public function destroyUser($user)
     {
-        $user->comments()->delete();
-
+        //$user->comments()->delete();
         $user->delete();
     }
     /**

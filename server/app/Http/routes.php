@@ -40,9 +40,10 @@ $app->group(['prefix' => 'issues', 'middleware' => 'jwt.auth'], function ($app) 
 $app->group(['prefix' => 'users', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
     $app->get('/', 'App\Http\Controllers\UsersController@index');
     $app->get('/{userId}', 'App\Http\Controllers\UsersController@show');
+    $app->delete('/{userId}', 'App\Http\Controllers\UsersController@destroy');
     $app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
-    //$app->get('/list', 'App\Http\Controllers\UsersController@getUserList');
-
+    $app->post('/', 'App\Http\Controllers\UsersController@store');
+    //$app->get('/list', 'App\Http\Controllers\UsersController@index');
 });
 
 //$app->get('/users', 'App\Http\Controllers\UsersController@index');
@@ -57,7 +58,7 @@ $app->group(['prefix' => 'users', 'middleware' => ['cors', 'jwt.auth']], functio
 
 $app->group(['middleware' => 'cors'], function ($app) {
 
-    $app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@testlogin');
+    $app->post('auth/login', 'App\Http\Controllers\Auth\AuthController@postlogin');
 });
 
 $app->group(['middleware' => ['cors', 'jwt.refresh']], function ($app) {

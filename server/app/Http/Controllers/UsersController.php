@@ -92,51 +92,78 @@ class UsersController extends ApiController
 
     public function show($userId, Manager $fractal, UserTransformer $UserTransformer, User $user)
     {
-        $ccuser = JWTAuth::parseToken()->toUser();
-        if ($ccuser->role->slug === "admin" || $ccuser->id === intval($userId)) {
+        if ($this->checkPermision($userId)) {
 
             $fractal->setSerializer(new ArraySerializer());
             $cuser = $user->findOrFail($userId);
             $item = new Item($cuser, $UserTransformer);
             $data = $fractal->createData($item)->toArray();
-
-        } else {
-            $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
-            $data = 'permision_denied';
+            return $this->respond($data);
         }
-
         //return $this->respond($data['data']);
-        return $this->respond($data);
+
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  App\requests\UserCreateRequest $request
+     *
+     * @return Response
+     */
 
     public function store(Request $request)
     {
 
-        $this->user->name = $request->get('name');
-        $this->user->name = $request->get('email');
-        $this->user->name = $request->get('password');
-        //$user->save()
-
+        $this->user_gestion->store($request->all());
+        return $request->all();
+        //return 'added';
     }
 
-    public function update($userId, Request $request)
+    public function update($userId, Request $request, User $user)
     {
-
-        $data = User::where('email', $this->current->email)->first();
-        if ($data->role == 'admin' or $data->id == $userId) {
-
-            $user = User::find($userId);
-            $user->name = $request->name;
-            if (!$request->password == '') {$user->password = $request->password;}
-            if ($data->role == 'admin') {$user->role = $request->role;}
-            $user->save();
-            return 'update';
+        if ($this->checkPermision($userId)) {
+            $cuser = $user->findOrFail($userId);
+            $this->user_gestion->update($request->all(), $cuser);
         }
 
+        //$this->user_gestion->update($request->all(), $cuser);
+        return 'updated';
+
     }
 
-    public function destroy($issueId)
+    public function updateSeen($userId, Request $request, User $user)
     {
+        if ($this->checkPermision($userId)) {
+            $cuser = $user->findOrFail($userId);
+            $this->user_gestion->update($request->all(), $cuser);
+        }
+
+        $this->user_gestion->update($request->all(), $cuser);
+        return 'updated';
+
+    }
+
+    public function destroy($userId, User $user)
+    {
+        $cuser = $user->findOrFail($userId);
+        $this->user_gestion->destroyUser($cuser);
+        return 'deleted';
+    }
+
+    protected function checkPermision($userId)
+    {
+
+        $user = JWTAuth::parseToken()->toUser();
+        if ($user->role->slug === "admin" || $user->id === intval($userId)) {
+            return true;
+        } else {
+
+            $this->setStatusCode(IlluminateResponse::HTTP_FORBIDDEN);
+            $data = 'permision_denied';
+            return $this->respond($data);
+
+        }
 
     }
 
