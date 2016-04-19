@@ -143,6 +143,12 @@ class UsersController extends ApiController
         return 'deleted';
     }
 
+    public function getRoles()
+	{
+		$roles = $this->role_gestion->all();
+		return $this->respond($roles);
+	}
+
     protected function checkPermision($userId)
     {
 

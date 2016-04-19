@@ -43,8 +43,17 @@ $app->group(['prefix' => 'users', 'middleware' => ['cors', 'jwt.auth']], functio
     $app->delete('/{userId}', 'App\Http\Controllers\UsersController@destroy');
     $app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
     $app->post('/', 'App\Http\Controllers\UsersController@store');
-    //$app->get('/list', 'App\Http\Controllers\UsersController@index');
 });
+
+$app->group(['prefix' => 'roles', 'middleware' => ['cors', 'jwt.auth']], function ($app) {
+    $app->get('/', 'App\Http\Controllers\UsersController@getRoles');
+    //$app->get('/{userId}', 'App\Http\Controllers\UsersController@show');
+    //$app->delete('/{userId}', 'App\Http\Controllers\UsersController@destroy');
+    //$app->put('/{userId}', 'App\Http\Controllers\UsersController@update');
+    //$app->post('/', 'App\Http\Controllers\UsersController@store');
+});
+
+
 
 //$app->get('/users', 'App\Http\Controllers\UsersController@index');
 //$app->get('/users/{userId}', 'App\Http\Controllers\UsersController@show');
