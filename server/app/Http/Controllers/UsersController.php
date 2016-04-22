@@ -122,9 +122,11 @@ class UsersController extends ApiController
     {
         if ($this->checkPermision($userId)) {
             $cuser = $user->findOrFail($userId);
-            $this->user_gestion->update($request->all(), $cuser);
+            $data = $this->user_gestion->update($request->all(), $cuser);
+            return $this->respond($data);
+
         }
-        return 'updated';
+
     }
 
     public function updateSeen($userId, Request $request, User $user)

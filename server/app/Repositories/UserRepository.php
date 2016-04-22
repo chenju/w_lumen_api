@@ -40,7 +40,7 @@ class UserRepository extends BaseRepository
             $user->username = $inputs['name'];
             $user->email = $inputs['email'];
             if (isset($inputs['role'])) {
-                $user->role_id = $inputs['role'];
+                $user->role_id = $this->role->where('title', $inputs['role'])->first()->id;
             } else {
                 $role_user = $this->role->where('slug', 'user')->first();
                 $user->role_id = $role_user->id;
@@ -138,6 +138,7 @@ class UserRepository extends BaseRepository
     {
         $user->confirmed = isset($inputs['confirmed']);
         $this->save($user, $inputs);
+        return $user;
     }
     /**
      * Get statut of authenticated user.
