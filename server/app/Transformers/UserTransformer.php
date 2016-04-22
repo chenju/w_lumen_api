@@ -7,7 +7,7 @@ class UserTransformer extends TransformerAbstract
 {
 
     protected $defaultIncludes = [
-        'role',
+        //'role',
     ];
 
     public function transform(User $user)
@@ -16,6 +16,8 @@ class UserTransformer extends TransformerAbstract
             'id' => $user->id,
             'name' => $user->username,
             'email' => $user->email,
+            'role_id'=>$user->role_id,
+            //'password'=>$user->password
         ];
     }
     public function includeRole(User $user)
