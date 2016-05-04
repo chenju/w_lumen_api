@@ -57,6 +57,7 @@ class UserRepository extends BaseRepository
      */
     public function index($n, $role)
     {
+
         if ($role != 'total') {
             return $this->model
                 ->with('role')
@@ -68,10 +69,13 @@ class UserRepository extends BaseRepository
                 ->paginate($n);
         }
         return $this->model
-        //->with('role')
+            ->with('role')
             ->oldest('seen')
             ->latest()
-            ->paginate($n);
+            ->limit($n[1] - $n[0])
+            ->offset($n[0])
+            ->get();
+        //->paginate($n);
     }
     /**
      * Count the users.

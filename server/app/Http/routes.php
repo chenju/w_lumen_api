@@ -53,8 +53,6 @@ $app->group(['prefix' => 'roles', 'middleware' => ['cors', 'jwt.auth']], functio
     //$app->post('/', 'App\Http\Controllers\UsersController@store');
 });
 
-
-
 //$app->get('/users', 'App\Http\Controllers\UsersController@index');
 //$app->get('/users/{userId}', 'App\Http\Controllers\UsersController@show');
 // index, show这些则不需要

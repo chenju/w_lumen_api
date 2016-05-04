@@ -56,22 +56,31 @@ class UsersController extends ApiController
         //return $data;
     }
 
-    public function index(Manager $fractal, UserTransformer $UserTransformer)
+    public function index(Manager $fractal, UserTransformer $UserTransformer, Request $request)
     {
-        return $this->indexSort('total', $fractal, $UserTransformer);
+        $n = $request['range'];
+        return (unserialize($n));
+        //return $this->indexSort('total', $fractal, $UserTransformer, $n);
     }
 
-    public function indexSort($role, $fractal, $UserTransformer)
+    public function indexSort($role, $fractal, $UserTransformer, $n)
     {
 
         //$counts = $this->user_gestion->counts();
-        $users = $this->user_gestion->index(4, $role);
+        $users = $this->user_gestion->index($n, $role);
         $fractal->setSerializer(new ArraySerializer());
         $collection = new Collection($users, $UserTransformer);
         $data = $fractal->createData($collection)->toArray();
+        $headers = [];
+        //$cont = "items " . $users->from();
+        //$headers["Content-Range"] = "items " . $users->firstItem() . "-" . $users->lastItem() . "/" . $users->total();
+        //$headers["Content-Type"] = "application/json";
+        //$headers["Access-Control-Expose-Headers"] = "Content-Range";
         //$links = $users->render();
         //$roles = $this->role_gestion->all();
-        return $this->respond($data['data']);
+        //return $users->getUrlRange(1, 3);
+        //return $this->respond($users, $headers);
+        return $this->respond($data['data'], $headers);
 
     }
 
