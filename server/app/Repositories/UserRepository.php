@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Filters\UserFilter;
 use App\Models\Role;
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -55,9 +56,10 @@ class UserRepository extends BaseRepository
      * @param  string  $role
      * @return Illuminate\Support\Collection
      */
-    public function index($n, $role)
-    {
+    public function index($n, $role) //PRFilter $PRFilter)
 
+    {
+        $filter = new UserFilter();
         if ($role != 'total') {
             return $this->model
                 ->with('role')
@@ -68,13 +70,15 @@ class UserRepository extends BaseRepository
                 ->latest()
                 ->paginate($n);
         }
-        return $this->model
+        $query = $this->model
             ->with('role')
             ->oldest('seen')
             ->latest()
             ->limit($n[1] - $n[0])
             ->offset($n[0])
             ->get();
+        //$query = (new UserFilter(['name' => 'darkwing']))->apply($query);
+        return $query;
         //->paginate($n);
     }
     /**

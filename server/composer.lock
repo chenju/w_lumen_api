@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "717536db68bf800cd7fb0b24d42f459c",
-    "content-hash": "fdc03a2330c2b5b9c5907034b82f23f3",
+    "hash": "71d6f21c452a39185a0b5f7e5cad89c1",
+    "content-hash": "36c5ad0d1f6caf26abf34a8eae6a6b50",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -2105,6 +2105,54 @@
             "time": "2015-04-20 06:32:38"
         },
         {
+            "name": "phpextra/enum",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpextra/enum.git",
+                "reference": "c1862b41a4db9a9794bb32c16456f8ea4fdf7ce1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/phpextra/enum/c1862b41a4db9a9794bb32c16456f8ea4fdf7ce1.zip",
+                "reference": "c1862b41a4db9a9794bb32c16456f8ea4fdf7ce1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPExtra\\Type\\Enum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jacek Kobus",
+                    "email": "kobus.jacek@gmail.com"
+                }
+            ],
+            "description": "Enum type for PHP",
+            "homepage": "https://github.com/phpextra/enum",
+            "keywords": [
+                "enum"
+            ],
+            "time": "2014-08-16 15:44:29"
+        },
+        {
             "name": "phpseclib/phpseclib",
             "version": "0.3.10",
             "source": {
@@ -4121,7 +4169,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "palanik/lumen-cors": 20
+        "palanik/lumen-cors": 20,
+        "phpextra/enum": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
