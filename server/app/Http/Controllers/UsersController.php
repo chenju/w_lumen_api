@@ -58,9 +58,8 @@ class UsersController extends ApiController
 
     public function index(Manager $fractal, UserTransformer $UserTransformer, Request $request)
     {
-        //$n = $request['range'];
-        $n = [1, 5];
-        //return (unserialize($n));
+        $n = $request->input("range");
+        $n = json_decode($n);
         return $this->indexSort('total', $fractal, $UserTransformer, $n);
     }
 
