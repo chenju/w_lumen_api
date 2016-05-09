@@ -69,17 +69,17 @@ class UsersController extends ApiController
         //$counts = $this->user_gestion->counts();
         $users = $this->user_gestion->index($n, $role);
         $fractal->setSerializer(new ArraySerializer());
-        $collection = new Collection($users, $UserTransformer);
+        $collection = new Collection($users->data, $UserTransformer);
         $data = $fractal->createData($collection)->toArray();
         $headers = [];
         //$cont = "items " . $users->from();
-        //$headers["Content-Range"] = "items " . $users->firstItem() . "-" . $users->lastItem() . "/" . $users->total();
-        //$headers["Content-Type"] = "application/json";
-        //$headers["Access-Control-Expose-Headers"] = "Content-Range";
+        $headers["Content-Range"] = "items " . ($users->first) . "-" . ($users->last) . "/" . $users->count;
+        $headers["Content-Type"] = "application/json";
+        $headers["Access-Control-Expose-Headers"] = "Content-Range";
         //$links = $users->render();
         //$roles = $this->role_gestion->all();
         //return $users->getUrlRange(1, 3);
-        //return $this->respond($users, $headers);
+        //return $this->respond($users->data, $headers);
         return $this->respond($data['data'], $headers);
 
     }
@@ -157,7 +157,11 @@ class UsersController extends ApiController
     public function getRoles()
     {
         $roles = $this->role_gestion->all();
-        return $this->respond($roles);
+        $headers = [];
+        $headers["Content-Range"] = "items " . 1 . "-" . count($roles) . "/" . count($roles);
+        $headers["Content-Type"] = "application/json";
+        $headers["Access-Control-Expose-Headers"] = "Content-Range";
+        return $this->respond($roles, $headers);
     }
 
     protected function checkPermision($userId)

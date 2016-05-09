@@ -68,14 +68,27 @@ class UserRepository extends BaseRepository
                 ->latest()
                 ->paginate($n);
         }
-        return $this->model
+
+        $query = $this->model
             ->with('role')
             ->oldest('seen')
-            ->latest()
-            ->limit($n[1] - $n[0] + 1)
+            ->latest();
+        //->limit($n[1] - $n[0] + 1)
+        //->offset($n[0])
+        //->get();
+        $count = $query->count();
+        $query = $query->limit($n[1] - $n[0] + 1)
             ->offset($n[0])
             ->get();
+
         //->paginate($n);
+
+        return (object) [
+            'data' => $query,
+            'count' => $count,
+            'first' => $n[0],
+            'last' => $n[1],
+        ];
     }
     /**
      * Count the users.
